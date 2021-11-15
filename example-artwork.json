@@ -1,0 +1,22 @@
+[
+  {
+    "name": "001",
+    "description": "Octopus Game Participant 001",
+    "external_url": "https://gateway.pinata.cloud/ipfs/QmfJRFsmZpuVwEvxe6C3kFFyuotG4XDwFrxv25EQ6MxcBS/TVshow-SquidGamePlayer001.png",
+    "image": "https://gateway.pinata.cloud/ipfs/QmfJRFsmZpuVwEvxe6C3kFFyuotG4XDwFrxv25EQ6MxcBS/TVshow-SquidGamePlayer001.png",
+    "attributes": [
+      {
+        "trait_type": "BackgroundColor",
+        "value": "green"
+      },
+      {
+        "trait_type": "Eyes",
+        "value": "googly"
+      },
+      {
+        "trait_type": "Stamina",
+        "value": 42
+      }
+    ]
+  }
+]
