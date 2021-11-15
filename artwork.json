@@ -1,0 +1,183 @@
+[
+  {
+    "name": "001",
+    "description": "Octopus Game Participant 001",
+    "external_url": "https://gateway.pinata.cloud/ipfs/QmfJRFsmZpuVwEvxe6C3kFFyuotG4XDwFrxv25EQ6MxcBS/TVshow-SquidGamePlayer001.png",
+    "image": "https://gateway.pinata.cloud/ipfs/QmfJRFsmZpuVwEvxe6C3kFFyuotG4XDwFrxv25EQ6MxcBS/TVshow-SquidGamePlayer001.png",
+    "attributes": [
+      {
+        "trait_type": "BackgroundColor",
+        "value": "green"
+      },
+      {
+        "trait_type": "Eyes",
+        "value": "googly"
+      },
+      {
+        "trait_type": "Stamina",
+        "value": 42
+      }
+    ]
+  },
+  {
+    "name": "002",
+    "description": "Octopus Game Participant 002",
+    "external_url": "https://gateway.pinata.cloud/ipfs/QmfJRFsmZpuVwEvxe6C3kFFyuotG4XDwFrxv25EQ6MxcBS/TVshow-SquidGamePlayer002.png",
+    "image": "https://gateway.pinata.cloud/ipfs/QmfJRFsmZpuVwEvxe6C3kFFyuotG4XDwFrxv25EQ6MxcBS/TVshow-SquidGamePlayer002.png",
+    "attributes": [
+      {
+        "trait_type": "BackgroundColor",
+        "value": "green"
+      },
+      {
+        "trait_type": "Eyes",
+        "value": "googly"
+      },
+      {
+        "trait_type": "Stamina",
+        "value": 42
+      }
+    ]
+  },
+  {
+    "name": "003",
+    "description": "Octopus Game Participant 003",
+    "external_url": "https://gateway.pinata.cloud/ipfs/QmfJRFsmZpuVwEvxe6C3kFFyuotG4XDwFrxv25EQ6MxcBS/TVshow-SquidGamePlayer003.png",
+    "image": "https://gateway.pinata.cloud/ipfs/QmfJRFsmZpuVwEvxe6C3kFFyuotG4XDwFrxv25EQ6MxcBS/TVshow-SquidGamePlayer003.png",
+    "attributes": [
+      {
+        "trait_type": "BackgroundColor",
+        "value": "green"
+      },
+      {
+        "trait_type": "Eyes",
+        "value": "googly"
+      },
+      {
+        "trait_type": "Stamina",
+        "value": 42
+      }
+    ]
+  },
+  {
+    "name": "067",
+    "description": "Octopus Game Participant 067",
+    "external_url": "https://gateway.pinata.cloud/ipfs/QmfJRFsmZpuVwEvxe6C3kFFyuotG4XDwFrxv25EQ6MxcBS/TVshow-SquidGamePlayer067.png",
+    "image": "https://gateway.pinata.cloud/ipfs/QmfJRFsmZpuVwEvxe6C3kFFyuotG4XDwFrxv25EQ6MxcBS/TVshow-SquidGamePlayer067.png",
+    "attributes": [
+      {
+        "trait_type": "BackgroundColor",
+        "value": "green"
+      },
+      {
+        "trait_type": "Eyes",
+        "value": "googly"
+      },
+      {
+        "trait_type": "Stamina",
+        "value": 42
+      }
+    ]
+  },
+  {
+    "name": "456",
+    "description": "Octopus Game Participant 456",
+    "external_url": "https://gateway.pinata.cloud/ipfs/QmfJRFsmZpuVwEvxe6C3kFFyuotG4XDwFrxv25EQ6MxcBS/TVshow-SquidGamePlayer456.png",
+    "image": "https://gateway.pinata.cloud/ipfs/QmfJRFsmZpuVwEvxe6C3kFFyuotG4XDwFrxv25EQ6MxcBS/TVshow-SquidGamePlayer456.png",
+    "attributes": [
+      {
+        "trait_type": "BackgroundColor",
+        "value": "green"
+      },
+      {
+        "trait_type": "Eyes",
+        "value": "googly"
+      },
+      {
+        "trait_type": "Stamina",
+        "value": 42
+      }
+    ]
+  },
+  {
+    "name": "FrontMan",
+    "description": "Octopus Game Front Man",
+    "external_url": "https://gateway.pinata.cloud/ipfs/QmfJRFsmZpuVwEvxe6C3kFFyuotG4XDwFrxv25EQ6MxcBS/TVshow-SquidGame-FrontMan2.png",
+    "image": "https://gateway.pinata.cloud/ipfs/QmfJRFsmZpuVwEvxe6C3kFFyuotG4XDwFrxv25EQ6MxcBS/TVshow-SquidGame-FrontMan2.png",
+    "attributes": [
+      {
+        "trait_type": "BackgroundColor",
+        "value": "green"
+      },
+      {
+        "trait_type": "Eyes",
+        "value": "googly"
+      },
+      {
+        "trait_type": "Stamina",
+        "value": 42
+      }
+    ]
+  },
+  {
+    "name": "Square",
+    "description": "Octopus Game Square",
+    "external_url": "https://gateway.pinata.cloud/ipfs/QmfJRFsmZpuVwEvxe6C3kFFyuotG4XDwFrxv25EQ6MxcBS/SQUID_SQUARE.png",
+    "image": "https://gateway.pinata.cloud/ipfs/QmfJRFsmZpuVwEvxe6C3kFFyuotG4XDwFrxv25EQ6MxcBS/SQUID_SQUARE.png",
+    "attributes": [
+      {
+        "trait_type": "BackgroundColor",
+        "value": "green"
+      },
+      {
+        "trait_type": "Eyes",
+        "value": "googly"
+      },
+      {
+        "trait_type": "Stamina",
+        "value": 42
+      }
+    ]
+  },
+  {
+    "name": "Triangle",
+    "description": "Octopus Game Triangle",
+    "external_url": "https://gateway.pinata.cloud/ipfs/QmfJRFsmZpuVwEvxe6C3kFFyuotG4XDwFrxv25EQ6MxcBS/SQUID_TRIANGLE.png",
+    "image": "https://gateway.pinata.cloud/ipfs/QmfJRFsmZpuVwEvxe6C3kFFyuotG4XDwFrxv25EQ6MxcBS/SQUID_TRIANGLE.png",
+    "attributes": [
+      {
+        "trait_type": "BackgroundColor",
+        "value": "green"
+      },
+      {
+        "trait_type": "Eyes",
+        "value": "googly"
+      },
+      {
+        "trait_type": "Stamina",
+        "value": 42
+      }
+    ]
+  },
+  {
+    "name": "Circle",
+    "description": "Octopus Game Circle",
+    "external_url": "https://gateway.pinata.cloud/ipfs/QmfJRFsmZpuVwEvxe6C3kFFyuotG4XDwFrxv25EQ6MxcBS/SQUID_ROUND_2_2.png",
+    "image": "https://gateway.pinata.cloud/ipfs/QmfJRFsmZpuVwEvxe6C3kFFyuotG4XDwFrxv25EQ6MxcBS/SQUID_ROUND_2_2.png",
+    "attributes": [
+      {
+        "trait_type": "BackgroundColor",
+        "value": "green"
+      },
+      {
+        "trait_type": "Eyes",
+        "value": "googly"
+      },
+      {
+        "trait_type": "Stamina",
+        "value": 42
+      }
+    ]
+  }
+  
+]
