@@ -534,9 +534,11 @@ function App(props) {
   const [transferToAddresses, setTransferToAddresses] = useState({});
 
   const [loadedAssets, setLoadedAssets] = useState();
+  const [onSaleAssets, setOnSaleAssets] = useState([]);
   useEffect(() => {
     const updateYourCollectibles = async () => {
       const assetUpdate = [];
+      const assetOnSale = [];
       for (const a in assets) {
         try {
           const forSale = await readContracts.YourCollectible.forSale(ethers.utils.id(a));
@@ -544,6 +546,8 @@ function App(props) {
           if (!forSale) {
             const tokenId = await readContracts.YourCollectible.uriToTokenId(ethers.utils.id(a));
             owner = await readContracts.YourCollectible.ownerOf(tokenId);
+          } else {
+            assetOnSale.push({ id: a, ...assets[a] });
           }
           assetUpdate.push({ id: a, ...assets[a], forSale, owner });
         } catch (e) {
@@ -551,6 +555,7 @@ function App(props) {
         }
       }
       setLoadedAssets(assetUpdate);
+      setOnSaleAssets(assetOnSale);
     };
     if (readContracts && readContracts.YourCollectible) updateYourCollectibles();
   }, [assets, readContracts, transferEvents]);
@@ -611,6 +616,10 @@ function App(props) {
       </Card>,
     );
   }
+
+  const getRandomInt = max => {
+    return Math.floor(Math.random() * max);
+  };
 
   return (
     <div className="App">
@@ -689,7 +698,19 @@ function App(props) {
                 this <Contract/> component will automatically parse your ABI
                 and give you a form to interact with it locally
             */}
-
+            <Button
+              onClick={() => {
+                const rnd = getRandomInt(onSaleAssets.length);
+                console.log("== Random Mint ==>", rnd, onSaleAssets[rnd].id);
+                tx(
+                  writeContracts.YourCollectible.mintItem(onSaleAssets[rnd].id, {
+                    gasPrice,
+                  }),
+                );
+              }}
+            >
+              Random Mint
+            </Button>
             <div style={{ maxWidth: 820, margin: "auto", marginTop: 32, paddingBottom: 256 }}>
               <StackGrid columnWidth={200} gutterWidth={16} gutterHeight={16}>
                 {galleryList}
