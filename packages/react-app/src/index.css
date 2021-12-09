@@ -1,3 +1,15 @@
+@font-face {
+  font-family: "04b_19";
+  src: local("04b_19"), url("./static/fonts/04b_19.ttf") format("truetype");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "04b_25";
+  src: local("04b_25"), url("./static/fonts/04b_25.ttf") format("truetype");
+  font-weight: normal;
+}
+
 body {
   margin: 0;
 }
@@ -7,5 +19,28 @@ code {
 }
 
 text {
-  font-family: 
+  font-family: "04b_25", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+  "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  sans-serif;
+}
+
+button {
+  font-family: "04b_19", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+  "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  sans-serif;
+}
+
+body {
+  margin: 0;
+  font-family: "04b_25", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-image : url("static/assets/background-1.png");
+  background-repeat: no-repeat;
+}
+
+.bg {
+  background-repeat: no-repeat;
 }
