@@ -11,7 +11,7 @@ import background3 from "./static/assets/background-3.png";
 import background4 from "./static/assets/background-4.png";
 
 const { Countdown } = Statistic;
-const deadline = Date.parse('19 Dec 2021 15:00:00 GMT');
+const deadline = Date.parse('18 Dec 2021 15:00:00 GMT');
 
 // This is the index.js file for the Pre-launch Page
 
