@@ -60,7 +60,7 @@ console.log("📦 Assets: ", assets);
 */
 
 /// 📡 What chain are your contracts deployed to?
-const targetNetwork = NETWORKS.localhost; // <------- select your target frontend network (localhost, rinkeby, xdai, mainnet)
+const targetNetwork = NETWORKS['rinkeby']; // <------- select your target frontend network (localhost, rinkeby, xdai, mainnet)
 
 // 😬 Sorry for all the console logging
 const DEBUG = true;
@@ -99,7 +99,7 @@ const getFromIPFS = async hashToGet => {
   }
 };
 
-// 🛰 providers
+// 🛰 ethereu network providers
 if (DEBUG) console.log("📡 Connecting to Mainnet Ethereum");
 // const mainnetProvider = getDefaultProvider("mainnet", { infura: INFURA_ID, etherscan: ETHERSCAN_KEY, quorum: 1 });
 // const mainnetProvider = new InfuraProvider("mainnet",INFURA_ID);
@@ -203,6 +203,7 @@ const web3Modal = new Web3Modal({
   },
 });
 
+// main react function for main page
 function App(props) {
   const mainnetProvider =
     poktMainnetProvider && poktMainnetProvider._isProvider
@@ -213,7 +214,7 @@ function App(props) {
 
   const [injectedProvider, setInjectedProvider] = useState();
   const [address, setAddress] = useState();
-
+  
   const logoutOfWeb3Modal = async () => {
     await web3Modal.clearCachedProvider();
     if (injectedProvider && injectedProvider.provider && typeof injectedProvider.provider.disconnect == "function") {
@@ -304,7 +305,7 @@ function App(props) {
       const collectibleUpdate = [];
       for (let tokenIndex = 0; tokenIndex < balance; tokenIndex++) {
         try {
-          console.log("GEtting token index", tokenIndex);
+          console.log("Getting token index", tokenIndex);
           const tokenId = await readContracts.YourCollectible.tokenOfOwnerByIndex(address, tokenIndex);
           console.log("tokenId", tokenId);
           const tokenURI = await readContracts.YourCollectible.tokenURI(tokenId);
@@ -374,6 +375,7 @@ function App(props) {
     mainnetContracts,
   ]);
 
+  // making sure wallet's network matches with website's network 
   let networkDisplay = "";
   if (NETWORKCHECK && localChainId && selectedChainId && localChainId !== selectedChainId) {
     const networkSelected = NETWORK(selectedChainId);
@@ -452,6 +454,7 @@ function App(props) {
       );
     }
   } else {
+    // displays the name of the etwork
     networkDisplay = (
       <div style={{ zIndex: -1, position: "absolute", right: 154, top: 28, padding: 16, color: targetNetwork.color }}>
         {targetNetwork.name}
@@ -492,7 +495,7 @@ function App(props) {
   useEffect(() => {
     setRoute(window.location.pathname);
   }, [setRoute]);
-
+  
   let faucetHint = "";
   const faucetAvailable = localProvider && localProvider.connection && targetNetwork.name.indexOf("local") !== -1;
 
@@ -623,7 +626,7 @@ function App(props) {
 
   return (
     <div className="App">
-      {/* ✏️ Edit the header and change the title to your project name */}
+      {/* Raving Goblins */}
       <Header />
       {networkDisplay}
 
