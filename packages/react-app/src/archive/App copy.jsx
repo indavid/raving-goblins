@@ -3,7 +3,7 @@ import { StaticJsonRpcProvider, Web3Provider } from "@ethersproject/providers";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 //import Torus from "@toruslabs/torus-embed"
 import WalletLink from "walletlink";
-import { Alert, Button, Card, Col, Input, List, Menu, Row, Statistic, Anchor } from "antd";
+import { Alert, Button, Card, Col, Input, List, Menu, Row } from "antd";
 import "antd/dist/antd.css";
 import React, { useCallback, useEffect, useState } from "react";
 import ReactJson from "react-json-view";
@@ -462,6 +462,8 @@ function App(props) {
     );
   }
 
+
+
   const loadWeb3Modal = useCallback(async () => {
     const provider = await web3Modal.connect();
     setInjectedProvider(new ethers.providers.Web3Provider(provider));
@@ -622,64 +624,331 @@ function App(props) {
     return Math.floor(Math.random() * max);
   };
 
-  const mintButton = () => {
-    <Button
-      onClick={() => {
-        const rnd = getRandomInt(onSaleAssets.length);
-        console.log("== Random Mint ==>", rnd, onSaleAssets[rnd].id);
-        tx(
-          writeContracts.YourCollectible.mintItem(onSaleAssets[rnd].id, {
-            gasPrice,
-          }),
-        );
-      }}
-    >
-      Random Mint
-    </Button>
-  };
-
-  class MySection extends React.Component {
-    render() {
-      return (
-        <div 
-          className="section"
-          style={{ 
-            backgroundImage: `url(${this.props.image})`,
-            backgroundPosition: 'center center',
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: 'cover',
-          }}
-        >
-          {/* <div style={{ maxWidth: 820, margin: "auto", marginTop: 32, paddingBottom: 256 }}>
-            <StackGrid columnWidth={200} gutterWidth={16} gutterHeight={16}>
-              {galleryList}
-            </StackGrid>
-          </div> */}
-        </div>
-      );
-    }
-  }
-
   return (
     <div className="App">
-          <Header />
-          👨‍💼 Your account is in the top right with a wallet at connect options
-          <div style={{ position: "fixed", textAlign: "right", right: 0, top: 0, padding: 10 }}>
-            <Account
+      {/* Raving Goblins */}
+      <Header />
+      {networkDisplay}
+
+      <BrowserRouter>
+        <Menu style={{ textAlign: "center" }} selectedKeys={[route]} mode="horizontal">
+          <Menu.Item key="/">
+            <Link
+              onClick={() => {
+                setRoute("/");
+              }}
+              to="/"
+            >
+              Gallery
+            </Link>
+          </Menu.Item>
+          <Menu.Item key="/yourcollectibles">
+            <Link
+              onClick={() => {
+                setRoute("/yourcollectibles");
+              }}
+              to="/yourcollectibles"
+            >
+              YourCollectibles
+            </Link>
+          </Menu.Item>
+          <Menu.Item key="/transfers">
+            <Link
+              onClick={() => {
+                setRoute("/transfers");
+              }}
+              to="/transfers"
+            >
+              Transfers
+            </Link>
+          </Menu.Item>
+          <Menu.Item key="/ipfsup">
+            <Link
+              onClick={() => {
+                setRoute("/ipfsup");
+              }}
+              to="/ipfsup"
+            >
+              IPFS Upload
+            </Link>
+          </Menu.Item>
+          <Menu.Item key="/ipfsdown">
+            <Link
+              onClick={() => {
+                setRoute("/ipfsdown");
+              }}
+              to="/ipfsdown"
+            >
+              IPFS Download
+            </Link>
+          </Menu.Item>
+          <Menu.Item key="/debugcontracts">
+            <Link
+              onClick={() => {
+                setRoute("/debugcontracts");
+              }}
+              to="/debugcontracts"
+            >
+              Debug Contracts
+            </Link>
+          </Menu.Item>
+        </Menu>
+
+        <Switch>
+          <Route exact path="/">
+            {/*
+                🎛 this scaffolding is full of commonly used components
+                this <Contract/> component will automatically parse your ABI
+                and give you a form to interact with it locally
+            */}
+            <Button
+              onClick={() => {
+                const rnd = getRandomInt(onSaleAssets.length);
+                console.log("== Random Mint ==>", rnd, onSaleAssets[rnd].id);
+                tx(
+                  writeContracts.YourCollectible.mintItem(onSaleAssets[rnd].id, {
+                    gasPrice,
+                  }),
+                );
+              }}
+            >
+              Random Mint
+            </Button>
+            <div style={{ maxWidth: 820, margin: "auto", marginTop: 32, paddingBottom: 256 }}>
+              <StackGrid columnWidth={200} gutterWidth={16} gutterHeight={16}>
+                {galleryList}
+              </StackGrid>
+            </div>
+          </Route>
+
+          <Route path="/yourcollectibles">
+            <div style={{ width: 640, margin: "auto", marginTop: 32, paddingBottom: 32 }}>
+              <List
+                bordered
+                dataSource={yourCollectibles}
+                renderItem={item => {
+                  const id = item.id.toNumber();
+                  return (
+                    <List.Item key={id + "_" + item.uri + "_" + item.owner}>
+                      <Card
+                        title={
+                          <div>
+                            <span style={{ fontSize: 16, marginRight: 8 }}>#{id}</span> {item.name}
+                          </div>
+                        }
+                      >
+                        <div>
+                          <img src={item.image} style={{ maxWidth: 150 }} alt="" />
+                        </div>
+                        <div>{item.description}</div>
+                      </Card>
+
+                      <div>
+                        owner:{" "}
+                        <Address
+                          address={item.owner}
+                          ensProvider={mainnetProvider}
+                          blockExplorer={blockExplorer}
+                          fontSize={16}
+                        />
+                        <AddressInput
+                          ensProvider={mainnetProvider}
+                          placeholder="transfer to address"
+                          value={transferToAddresses[id]}
+                          onChange={newValue => {
+                            const update = {};
+                            update[id] = newValue;
+                            setTransferToAddresses({ ...transferToAddresses, ...update });
+                          }}
+                        />
+                        <Button
+                          onClick={() => {
+                            console.log("writeContracts", writeContracts);
+                            tx(writeContracts.YourCollectible.transferFrom(address, transferToAddresses[id], id));
+                          }}
+                        >
+                          Transfer
+                        </Button>
+                      </div>
+                    </List.Item>
+                  );
+                }}
+              />
+            </div>
+          </Route>
+
+          <Route path="/transfers">
+            <div style={{ width: 600, margin: "auto", marginTop: 32, paddingBottom: 32 }}>
+              <List
+                bordered
+                dataSource={transferEvents}
+                renderItem={item => {
+                  return (
+                    <List.Item key={item[0] + "_" + item[1] + "_" + item.blockNumber + "_" + item.args[2].toNumber()}>
+                      <span style={{ fontSize: 16, marginRight: 8 }}>#{item.args[2].toNumber()}</span>
+                      <Address address={item.args[0]} ensProvider={mainnetProvider} fontSize={16} /> =&gt;
+                      <Address address={item.args[1]} ensProvider={mainnetProvider} fontSize={16} />
+                    </List.Item>
+                  );
+                }}
+              />
+            </div>
+          </Route>
+
+          <Route path="/ipfsup">
+            <div style={{ paddingTop: 32, width: 740, margin: "auto", textAlign: "left" }}>
+              <ReactJson
+                style={{ padding: 8 }}
+                src={yourJSON}
+                theme="pop"
+                enableClipboard={false}
+                onEdit={(edit, a) => {
+                  setYourJSON(edit.updated_src);
+                }}
+                onAdd={(add, a) => {
+                  setYourJSON(add.updated_src);
+                }}
+                onDelete={(del, a) => {
+                  setYourJSON(del.updated_src);
+                }}
+              />
+            </div>
+
+            <Button
+              style={{ margin: 8 }}
+              loading={sending}
+              size="large"
+              shape="round"
+              type="primary"
+              onClick={async () => {
+                console.log("UPLOADING...", yourJSON);
+                setSending(true);
+                setIpfsHash();
+                const result = await ipfs.add(JSON.stringify(yourJSON)); // addToIPFS(JSON.stringify(yourJSON))
+                if (result && result.path) {
+                  setIpfsHash(result.path);
+                }
+                setSending(false);
+                console.log("RESULT:", result);
+              }}
+            >
+              Upload to IPFS
+            </Button>
+
+            <div style={{ padding: 16, paddingBottom: 150 }}>{ipfsHash}</div>
+          </Route>
+          <Route path="/ipfsdown">
+            <div style={{ paddingTop: 32, width: 740, margin: "auto" }}>
+              <Input
+                value={ipfsDownHash}
+                placeHolder="IPFS hash (like QmadqNw8zkdrrwdtPFK1pLi8PPxmkQ4pDJXY8ozHtz6tZq)"
+                onChange={e => {
+                  setIpfsDownHash(e.target.value);
+                }}
+              />
+            </div>
+            <Button
+              style={{ margin: 8 }}
+              loading={sending}
+              size="large"
+              shape="round"
+              type="primary"
+              onClick={async () => {
+                console.log("DOWNLOADING...", ipfsDownHash);
+                setDownloading(true);
+                setIpfsContent();
+                const result = await getFromIPFS(ipfsDownHash); // addToIPFS(JSON.stringify(yourJSON))
+                if (result && result.toString) {
+                  setIpfsContent(result.toString());
+                }
+                setDownloading(false);
+              }}
+            >
+              Download from IPFS
+            </Button>
+
+            <pre style={{ padding: 16, width: 500, margin: "auto", paddingBottom: 150 }}>{ipfsContent}</pre>
+          </Route>
+          <Route path="/debugcontracts">
+            <Contract
+              name="YourCollectible"
+              signer={userSigner}
+              provider={localProvider}
               address={address}
-              localProvider={localProvider}
-              userSigner={userSigner}
-              mainnetProvider={mainnetProvider}
-              price={price}
-              web3Modal={web3Modal}
-              loadWeb3Modal={loadWeb3Modal}
-              logoutOfWeb3Modal={logoutOfWeb3Modal}
+              blockExplorer={blockExplorer}
+              contractConfig={contractConfig}
+            />
+            {/*
+            <Contract
+              name="UNI"
+              customContract={mainnetContracts && mainnetContracts.contracts && mainnetContracts.contracts.UNI}
+              signer={userSigner}
+              provider={mainnetProvider}
+              address={address}
               blockExplorer={blockExplorer}
             />
-            {faucetHint}
-          </div>
+            */}
+          </Route>
+        </Switch>
+      </BrowserRouter>
 
-          {networkDisplay}
+      <ThemeSwitch />
+
+      {/* 👨‍💼 Your account is in the top right with a wallet at connect options */}
+      <div style={{ position: "fixed", textAlign: "right", right: 0, top: 0, padding: 10 }}>
+        <Account
+          address={address}
+          localProvider={localProvider}
+          userSigner={userSigner}
+          mainnetProvider={mainnetProvider}
+          price={price}
+          web3Modal={web3Modal}
+          loadWeb3Modal={loadWeb3Modal}
+          logoutOfWeb3Modal={logoutOfWeb3Modal}
+          blockExplorer={blockExplorer}
+        />
+        {faucetHint}
+      </div>
+
+      {/* 🗺 Extra UI like gas price, eth price, faucet, and support: */}
+      <div style={{ position: "fixed", textAlign: "left", left: 0, bottom: 20, padding: 10 }}>
+        <Row align="middle" gutter={[4, 4]}>
+          <Col span={8}>
+            <Ramp price={price} address={address} networks={NETWORKS} />
+          </Col>
+
+          <Col span={8} style={{ textAlign: "center", opacity: 0.8 }}>
+            <GasGauge gasPrice={gasPrice} />
+          </Col>
+          <Col span={8} style={{ textAlign: "center", opacity: 1 }}>
+            <Button
+              onClick={() => {
+                window.open("https://t.me/joinchat/KByvmRe5wkR-8F_zz6AjpA");
+              }}
+              size="large"
+              shape="round"
+            >
+              <span style={{ marginRight: 8 }} role="img" aria-label="support">
+                💬
+              </span>
+              Support
+            </Button>
+          </Col>
+        </Row>
+
+        <Row align="middle" gutter={[4, 4]}>
+          <Col span={24}>
+            {
+              /*  if the local provider has a signer, let's show the faucet:  */
+              faucetAvailable ? (
+                <Faucet localProvider={localProvider} price={price} ensProvider={mainnetProvider} />
+              ) : (
+                ""
+              )
+            }
+          </Col>
+        </Row>
+      </div>
     </div>
   );
 }

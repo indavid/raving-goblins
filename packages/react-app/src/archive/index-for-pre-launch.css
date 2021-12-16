@@ -37,19 +37,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image : url("static/assets/background-1.png");
+  background-repeat: no-repeat;
 }
 
 .bg {
   background-repeat: no-repeat;
-}
-
-.logo {
-  float: left;
-  width: 120px;
-  height: 31px;
-  margin: 16px 24px 16px 0;
-  background-image : url("./static/assets/menu-logo.png");
-  background-repeat: no-repeat;
-  background-size: 'cover';
-  background-position: 'center center';
 }

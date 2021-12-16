@@ -1,107 +1,103 @@
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import React from "react";
+import { Layout, Menu } from 'antd';
 import ReactDOM from "react-dom";
+import 'react-app-protect/dist/index.css';
 import ReactFullpage from "@fullpage/react-fullpage";
-import 'react-app-protect/dist/index.css'
+import "antd/dist/antd.css";
 import "./index.css";
-import { Statistic, Row, Col } from 'antd';
-import background1 from "./static/assets/background-1.png";
-import background2 from "./static/assets/background-2.png";
-import background3 from "./static/assets/background-3.png";
-import background4 from "./static/assets/background-4.png";
 
-const { Countdown } = Statistic;
-const deadline = Date.parse('18 Dec 2021 15:00:00 GMT');
+// Importing the Header, Content, and Footer components from the Layout component
+const { Header, Content, Footer } = Layout;
 
-// This is the index.js file for the Pre-launch Page
-
-const themes = {
-  dark: `${process.env.PUBLIC_URL}/dark-theme.css`,
-  light: `${process.env.PUBLIC_URL}/light-theme.css`,
-};
-
-const prevTheme = window.localStorage.getItem("theme");
+/** Importing Background Components for this SPA */
+import { HomeSection, AboutSection, EventSection, MintSection, RaritySection, RoadmapSection, TeamSection } from "./components";
 
 const subgraphUri = "http://localhost:8000/subgraphs/name/scaffold-eth/your-contract";
-
+ 
 const client = new ApolloClient({
   uri: subgraphUri,
   cache: new InMemoryCache(),
 });
 
-const CountdownTimer = () => (
-  <Countdown 
-    title="Let's Meet Again In" 
-    value={deadline} 
-    format="DD:HH:mm:ss:SS"
-    style={{ fontSize: '4em', color: '#FFF', textAlign: 'center', marginBottom: '0.5em'}} 
-  />
-);
-
-class MySection extends React.Component {
-  render() {
-    return (
-      <div 
-        className="section"
-        style={{ 
-          backgroundImage: `url(${this.props.image})`,
-          backgroundPosition: 'center center',
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover'
-        }}
-      >
-      </div>
-    );
-  }
-}
-
-class MySectionCountdown extends React.Component {
-  render() {
-    return (
-      <div 
-        className="section"
-        style={{ 
-          backgroundImage: `url(${this.props.image})`,
-          backgroundPosition: 'center center',
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover'
-        }}
-      >
-        <CountdownTimer />
-      </div>
-    );
-  }
-}
-
-const anchors = ["firstPage", "secondPage", "thirdPage", "fourthPage"];
+const anchors = ["Home", "About", "Event", "Mint", "Rarity", "Roadmap", "Team"];
 
 const FullpageWrapper = () => (
   <ReactFullpage
     anchors={anchors}
-    navigation
+    navigation 
     navigationTooltips={anchors}
-    sectionsColor={["#0F001C", "#0F001C", "#0F001C", "#0F001C"]}
+    autoScrolling={false}
     onLeave={(origin, destination, direction) => {
-      console.log("onLeave event", { origin, destination, direction });
+      console.log("onLeave", origin, destination, direction);
     }}
     render={({ state, fullpageApi }) => {
-      console.log("render prop change", state, fullpageApi); // eslint-disable-line no-console
-
+      console.log("render prop change", state, fullpageApi);
       return (
         <div>
-          <MySection image={background1} />
-          <MySectionCountdown image={background2} />
-          <MySection image={background3} />
-          <MySection image={background4} />
+          <HomeSection />
+          <AboutSection />
+          <EventSection />
+          <MintSection />
+          <RaritySection />
+          <RoadmapSection />
+          <TeamSection />
         </div>
       );
     }}
   />
-);
+)
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <FullpageWrapper />
+    <Layout className="layout">
+      <Header 
+          style={{ position: 'fixed', zIndex: 1, width: '100%', backgroundColor: '#23003F' }}
+      >
+          <div className="logo" />
+          <Menu 
+              theme="dark" 
+              mode="horizontal"
+              style={{
+                  backgroundColor: '#23003F',
+              }}
+          >
+              <Menu.Item>
+                <a href="#Home">HOME</a>
+              </Menu.Item>
+              <Menu.Item>
+                <a href="#About">ABOUT</a>
+              </Menu.Item>
+              <Menu.Item>
+                <a href="#Event">EVENT</a>
+              </Menu.Item>
+              <Menu.Item>
+                <a href="#Mint">MINT</a>
+              </Menu.Item>
+              <Menu.Item>
+                <a href="#Rarity">RARITY</a>
+              </Menu.Item>
+              <Menu.Item>
+                <a href="#Roadmap">ROADMAP</a>
+              </Menu.Item>
+              <Menu.Item>
+                <a href="#Team">TEAM</a>
+              </Menu.Item>
+          </Menu>
+      </Header>
+    </Layout>
+    <Content>
+      <FullpageWrapper />
+    </Content>
+    <Footer 
+      style={{ 
+        textAlign: 'center', 
+        color: 'white', 
+        backgroundColor: '#300449',
+        padding: '2em',
+      }}>
+        Every Single Moments ©2021 Crafted by David
+      </Footer>
   </ApolloProvider>,
   document.getElementById("root"),
 );

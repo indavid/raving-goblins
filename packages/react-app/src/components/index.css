@@ -1,0 +1,238 @@
+.title-logo {
+    background-image : url("../static/assets/title-logo.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 40em;
+    height: 20em;
+}
+
+.circle-goblin {
+    background-image : url("../static/assets/circle-goblin.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 11em;
+    height: 11em;
+    position: absolute;
+    margin-top: 9%;
+    margin-left: 22%;
+}
+
+.player-goblin {
+  background-image : url("../static/assets/player-goblin.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 11em;
+  height: 11em;
+  position: absolute;
+  margin-top: 7%;
+  margin-left: 69%;
+}
+
+/** For the button **/
+.pushable {
+    background: #01B1B4;
+    border-radius: 12px;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    outline-offset: 4px;
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+    margin-top: 1em;
+
+}
+
+.front {
+    display: block;
+    padding: 12px 42px;
+    border-radius: 12px;
+    font-size: 1.25rem;
+    background: #00FFFF;
+    color: #1C0038;
+    transform: translateY(-6px);
+    text-align: center;
+}
+
+.pushable:active .front {
+    transform: translateY(-2px);
+}
+
+.pushable:focus:not(:focus-visible) {
+    outline: none;
+}
+
+.front {
+    transition:
+      transform
+      600ms
+      cubic-bezier(.3, .7, .4, 1);
+  }
+
+.pushable:hover .front {
+    transform: translateY(-6px);
+    transition:
+        transform
+        250ms
+        cubic-bezier(.3, .7, .4, 1.5);
+}
+
+.pushable:active .front {
+    transform: translateY(-2px);
+    transition: transform 34ms;
+}
+
+/** For the blinking arrow **/
+/* $stem-height: 80px;
+$stem-width: 6px;
+$pointer-width: 6px;
+$pointer-space: 20px; */
+
+.arrow {
+  width: 10px;
+  height: 0px;
+  margin: 5% auto;
+  border-radius: 3px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0), #00FFFF 75%);
+  -webkit-animation: 3s soft-blink infinite alternate;
+  animation: 3s soft-blink infinite alternate;
+  position: relative;
+  opacity: 0;
+}
+
+@-webkit-keyframes soft-blink {
+  0% { opacity: 0; }
+  50% { opacity: 0; }
+  100% { opacity: 0.8; }
+}
+
+@keyframes soft-blink {
+  0% { opacity: 0; }
+  50% { opacity: 0; }
+  100% { opacity: 0.8; }
+}
+
+.arrow:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: - (20px + 6px) / 1.5;
+  border-bottom: 6px solid #00FFFF;
+  border-right: 6px solid #00FFFF;
+  border-top: 6px solid transparent;
+  border-left: 6px solid transparent;
+  border-radius: 4px;
+  width: 20px;
+  height: 20px;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+/** For the About Page **/
+.text {
+  font-size: 1.7em;
+  background-color: rgba(0, 87, 94, 0.37);
+  padding: 2em 3em 2em 3em;
+  border-radius: 4em;
+}
+
+.text-2 {
+  font-size: 1.5em;
+  background-color: rgba(0, 87, 94, 0.37);
+  padding: 1em 3em 1.5em 3em;
+  border-radius: 2em;
+}
+
+.sm-title-logo {
+  background-image : url("../static/assets/sm-title-logo.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 30em;
+  height: 15em;
+}
+
+/** For the Event Page **/
+.squid-game-event {
+  background-image : url("../static/assets/squid-game-event.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 702px;
+  height: 80px;
+}
+
+/** For the Mint Page **/
+.xs-title-logo {
+  background-image : url("../static/assets/xs-title-logo.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 150px;
+  height: 74px;
+}
+
+.gachapon {
+  background-image : url("../static/assets/gachapon.gif");
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 440px;
+  height: 750px;
+}
+
+.frontman {
+    background-image : url("../static/assets/frontman.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 300px;
+    height: 210px;
+    margin-top: 42em;
+}
+
+.circle {
+  background-image : url("../static/assets/circle.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 300px;
+  height: 210px;
+  margin-top: 44em;
+  margin-left: 0.3em;
+}
+
+.triangle {
+  background-image : url("../static/assets/triangle.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 300px;
+  height: 210px;
+  margin-top: 44em;
+  margin-left: 2em;
+}
+
+.player-067 {
+  background-image : url("../static/assets/player-067.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 300px;
+  height: 210px;
+  margin-top: 44em;
+  margin-left: 1.7em;
+}
+
+/** For the Team Page **/
+.team {
+  background-image : url("../static/assets/team.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 630px;
+  height: 530px;
+  margin: 0% auto;
+}
+
+.sm-2-title-logo {
+  background-image : url("../static/assets/sm-2-title-logo.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 300px;
+  height: 148px;
+  margin: 0% auto;
+}
+
+
