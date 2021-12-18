@@ -183,7 +183,7 @@ const web3Modal = new Web3Modal({
 });
 
 // main react function for main page
-function App(props) {
+function MintSection(props) {
     const mainnetProvider =
     poktMainnetProvider && poktMainnetProvider._isProvider
     ? poktMainnetProvider
@@ -193,7 +193,7 @@ function App(props) {
 
     const [injectedProvider, setInjectedProvider] = useState();
     const [address, setAddress] = useState();
-    
+
     const logoutOfWeb3Modal = async () => {
         await web3Modal.clearCachedProvider();
         if (injectedProvider && injectedProvider.provider && typeof injectedProvider.provider.disconnect == "function") {
@@ -354,7 +354,7 @@ function App(props) {
         mainnetContracts,
     ]);
 
-    // making sure wallet's network matches with website's network 
+    // making sure wallet's network matches with website's network
     let networkDisplay = "";
     if (NETWORKCHECK && localChainId && selectedChainId && localChainId !== selectedChainId) {
         const networkSelected = NETWORK(selectedChainId);
@@ -474,7 +474,7 @@ function App(props) {
     useEffect(() => {
         setRoute(window.location.pathname);
     }, [setRoute]);
-    
+
     let faucetHint = "";
     const faucetAvailable = localProvider && localProvider.connection && targetNetwork.name.indexOf("local") !== -1;
 
@@ -542,146 +542,122 @@ function App(props) {
         if (readContracts && readContracts.YourCollectible) updateYourCollectibles();
     }, [assets, readContracts, transferEvents]);
 
-    const galleryList = [];
-    for (const a in loadedAssets) {
-        console.log("loadedAssets", a, loadedAssets[a]);
-
-        const cardActions = [];
-        if (loadedAssets[a].forSale) {
-        cardActions.push(
-            <div>
-            <Button
-                onClick={() => {
-                console.log("gasPrice,", gasPrice);
-                tx(writeContracts.YourCollectible.mintItem(loadedAssets[a].id, { gasPrice }));
-                }}
-            >
-                Mint
-            </Button>
-            </div>,
-        );
-        } else {
-        cardActions.push(
-            <div>
-            owned by:{" "}
-            <Address
-                address={loadedAssets[a].owner}
-                ensProvider={mainnetProvider}
-                blockExplorer={blockExplorer}
-                minimized
-            />
-            </div>,
-        );
-        }
-
-        galleryList.push(
-        <Card
-            style={{ width: 200 }}
-            key={loadedAssets[a].name}
-            actions={cardActions}
-            title={
-            <div>
-                {loadedAssets[a].name}{" "}
-                <a
-                    style={{ cursor: "pointer", opacity: 0.33 }}
-                    href={loadedAssets[a].external_url}
-                    target="_blank"
-                    rel="noreferrer"
-                >
-                    {/* <LinkOutlined /> */}
-                </a>
-            </div>
-            }
-        >
-            <img style={{ maxWidth: 130 }} src={loadedAssets[a].image} alt="" />
-            <div style={{ opacity: 0.77 }}>{loadedAssets[a].description}</div>
-        </Card>,
-        );
-    }
-
     const getRandomInt = max => {
         return Math.floor(Math.random() * max);
     };
 
-    return (
-        <div className="App">
-            <Account
-                address={address}
-                localProvider={localProvider}
-                userSigner={userSigner}
-                mainnetProvider={mainnetProvider}
-                price={price}
-                web3Modal={web3Modal}
-                loadWeb3Modal={loadWeb3Modal}
-                logoutOfWeb3Modal={logoutOfWeb3Modal}
-                blockExplorer={blockExplorer}
-            />
-            <Button
-                onClick={() => {
+  const subgraphUri = "http://localhost:8000/subgraphs/name/scaffold-eth/your-contract";
+
+  return (
+    <div
+      className="section"
+      style={{
+        backgroundImage: `url(${background3})`,
+        backgroundPosition: 'center center',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+      }}
+    >
+      <Row>
+        <Col span={2}>
+          <div className="frontman" />
+        </Col>
+        <Col span={2}>
+          <div className="circle" />
+        </Col>
+        <Col span={2}>
+          <div className="triangle" />
+        </Col>
+        <Col span={2}>
+          <div className="player-067" />
+        </Col>
+        <Col span={8} align="middle">
+          <div className="xs-title-logo" />
+          <div className="gachapon" />
+        </Col>
+        <Col span={3}>
+          {/* <App /> */}
+          <Button class="pushable" style={{ marginTop: '47em', marginBottom: '2em' }}
+              onClick={() => {
                 const rnd = getRandomInt(onSaleAssets.length);
-                console.log("== Random Mint ==>", rnd, onSaleAssets[rnd].id);
-                tx(
+                console.log("== Random Mint ==>", rnd, onSaleAssets.length);
+                if (onSaleAssets.length > 0) {
+                  tx(
                     writeContracts.YourCollectible.mintItem(onSaleAssets[rnd].id, {
-                    gasPrice,
+                      gasPrice,
                     }),
-                );
-                }}
-            >
-                Random Mint
-            </Button>
-        </div>
-    );
-    }
+                  );
+                }
+              }}
+          >
+                <span class="front" style={{ paddingLeft: '2.9em', paddingRight: '2.9em' }}>
+                    MINT
+                </span>
+          </Button>
 
-class MintSection extends React.Component {
-    render() {
-        const subgraphUri = "http://localhost:8000/subgraphs/name/scaffold-eth/your-contract";
-
-        return (
-            <div 
-                className="section"
-                style={{ 
-                    backgroundImage: `url(${background3})`,
-                    backgroundPosition: 'center center',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundSize: 'cover',
-                }}
-            >
-                <Row>
-                    <Col span={2}>
-                        <div className="frontman" />
-                    </Col>
-                    <Col span={2}>
-                        <div className="circle" />
-                    </Col>
-                    <Col span={2}>
-                        <div className="triangle" />
-                    </Col>
-                    <Col span={2}>
-                        <div className="player-067" />
-                    </Col>
-                    <Col span={8} align="middle">
-                        <div className="xs-title-logo" />
-                        <div className="gachapon" />
-                    </Col>
-                    <Col span={3}>
-                        {/* <App /> */}
-                        <button class="pushable" style={{ marginTop: '47em', marginBottom: '1em' }}>
-                            <span class="front" style={{ paddingLeft: '2.9em', paddingRight: '2.9em' }}>
-                                MINT
-                            </span>
-                        </button>
-                        <button class="pushable">
-                            <span class="shadow"></span>
-                            <span class="front">
-                                CONNECT
-                            </span>
-                        </button>
-                    </Col>
-                </Row>
-            </div>
-        )
-    }
+          <Button class="pushable"
+                  onClick={loadWeb3Modal}
+          >
+            <span class="shadow"></span>
+                <span class="front">
+                    CONNECT
+                </span>
+          </Button>
+        </Col>
+      </Row>
+    </div>
+  )
 }
+
+// class MintSection extends React.Component {
+//     render() {
+//         const subgraphUri = "http://localhost:8000/subgraphs/name/scaffold-eth/your-contract";
+//
+//         return (
+//             <div
+//                 className="section"
+//                 style={{
+//                     backgroundImage: `url(${background3})`,
+//                     backgroundPosition: 'center center',
+//                     backgroundRepeat: 'no-repeat',
+//                     backgroundSize: 'cover',
+//                 }}
+//             >
+//                 <Row>
+//                     <Col span={2}>
+//                         <div className="frontman" />
+//                     </Col>
+//                     <Col span={2}>
+//                         <div className="circle" />
+//                     </Col>
+//                     <Col span={2}>
+//                         <div className="triangle" />
+//                     </Col>
+//                     <Col span={2}>
+//                         <div className="player-067" />
+//                     </Col>
+//                     <Col span={8} align="middle">
+//                         <div className="xs-title-logo" />
+//                         <div className="gachapon" />
+//                     </Col>
+//                     <Col span={3}>
+//                         {/* <App /> */}
+//                         <button class="pushable" style={{ marginTop: '47em', marginBottom: '1em' }}>
+//                             <span class="front" style={{ paddingLeft: '2.9em', paddingRight: '2.9em' }}>
+//                                 MINT
+//                             </span>
+//                         </button>
+//                         <button class="pushable">
+//                             <span class="shadow"></span>
+//                             <span class="front">
+//                                 CONNECT
+//                             </span>
+//                         </button>
+//                     </Col>
+//                 </Row>
+//             </div>
+//         )
+//     }
+// }
 
 export default MintSection;
