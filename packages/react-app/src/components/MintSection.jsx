@@ -581,6 +581,7 @@ function MintSection(props) {
                 if (onSaleAssets.length > 0) {
                   tx(
                     writeContracts.YourCollectible.mintItem(onSaleAssets[rnd].id, {
+                      value: ethers.utils.parseEther("0.03"),
                       gasPrice,
                     }),
                   );
