@@ -35,6 +35,7 @@ contract YourCollectible is ERC721 {
 
       //make sure they are only minting something that is marked "forsale"
       require(forSale[uriHash],"NOT FOR SALE");
+      require(msg.value >= 0.03 ether);
       forSale[uriHash]=false;
 
       _tokenIds.increment();
