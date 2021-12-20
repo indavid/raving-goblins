@@ -28,6 +28,7 @@ contract YourCollectible is ERC721 {
 
   function mintItem(string memory tokenURI)
       public
+      payable
       returns (uint256)
   {
       bytes32 uriHash = keccak256(abi.encodePacked(tokenURI));
