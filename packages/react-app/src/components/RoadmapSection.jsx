@@ -35,17 +35,17 @@ class RoadmapSection extends React.Component {
                                     1
                                 </Title>
                                 <Paragraph style={{ color: '#EBFEFF' }}>
-                                    SquidGameEvent: Calling all gamblers to risk their lives to win a Legend Raving Goblin. All you need a Raving Goblins Squid Game NFT but only 456 Squid Game NFTs are in this 1st Drop. So hurry and mint.
+                                    SquidGameEvent: Calling all gamblers to risk their lives to win a Legend Raving Goblin. All you need a Raving Goblins Squid Game NFT but only 456 Squid Game NFTs are dropping in this 1st Drop. So hurry up and mint.
                                 </Paragraph>
                                 <Title style={{ color: '#0CEEFF', marginBottom: '0.5em' }}>
                                     2
                                 </Title>
                                 <Paragraph style={{ color: '#EBFEFF' }}>
-                                The First Drop: The first drop of 2,000 Raving Goblins will be released on 12AM KST December 19, 2021. Each Goblin will go for or 0.03 ETH. First come first serve, so don’t come late to the party.
+                                    The First Drop: The first drop of 2,000 Raving Goblins will be released on 12AM KST December 19, 2021. Each Goblin will go for or 0.03 ETH. First come first serve, so don’t come late to the party.
                                 </Paragraph>
                                 <Title style={{ color: '#0CEEFF' }}>
                                     3
-                                </Title>
+                                </Title>kr
                                 <Paragraph style={{ color: '#EBFEFF' }}>
                                     Somewhere in Seoul, South Korea: all Raving Goblins will gain access to exclusive parties held in legendary clubs owned by the founding Raving Goblins team.
                                 </Paragraph>
@@ -53,7 +53,7 @@ class RoadmapSection extends React.Component {
                                     4
                                 </Title>
                                 <Paragraph style={{ color: '#EBFEFF' }}>
-                                    RavingGoblins DAO: Implementing a  DAO will help create a community focused on deciding our direction and expansion of our ecosystem.
+                                    RavingGoblins DAO: Implementing a  DAO will help create a community focused on deciding our direction and expansion of our Web3 ecosystem.
                                 </Paragraph>
                             </Typography>
                             <div class="arrow"></div>

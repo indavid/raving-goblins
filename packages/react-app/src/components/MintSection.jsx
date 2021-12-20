@@ -563,21 +563,18 @@ function MintSection(props) {
           <div className="frontman" />
         </Col>
         <Col span={2}>
-          <div className="circle" />
-        </Col>
-        <Col span={2}>
           <div className="triangle" />
         </Col>
         <Col span={2}>
           <div className="player-067" />
         </Col>
+        <Col span={2}></Col>
         <Col span={8} align="middle">
           <div className="xs-title-logo" />
           <div className="gachapon" />
         </Col>
         <Col span={3}>
-          {/* <App /> */}
-          <Button class="pushable" style={{ marginTop: '47em', marginBottom: '2em' }}
+          <button class="pushable" style={{ marginTop: '43em', marginBottom: '2em' }}
               onClick={() => {
                 const rnd = getRandomInt(onSaleAssets.length);
                 console.log("== Random Mint ==>", rnd, onSaleAssets.length);
@@ -590,74 +587,23 @@ function MintSection(props) {
                 }
               }}
           >
-                <span class="front" style={{ paddingLeft: '2.9em', paddingRight: '2.9em' }}>
-                    MINT
-                </span>
-          </Button>
+            <span class="front" style={{ paddingLeft: '2.9em', paddingRight: '2.9em' }}>
+                MINT
+            </span>
+          </button>
 
-          <Button class="pushable"
+          <button class="pushable"
                   onClick={loadWeb3Modal}
           >
             <span class="shadow"></span>
                 <span class="front">
                     CONNECT
                 </span>
-          </Button>
+          </button>
         </Col>
       </Row>
     </div>
   )
 }
-
-// class MintSection extends React.Component {
-//     render() {
-//         const subgraphUri = "http://localhost:8000/subgraphs/name/scaffold-eth/your-contract";
-//
-//         return (
-//             <div
-//                 className="section"
-//                 style={{
-//                     backgroundImage: `url(${background3})`,
-//                     backgroundPosition: 'center center',
-//                     backgroundRepeat: 'no-repeat',
-//                     backgroundSize: 'cover',
-//                 }}
-//             >
-//                 <Row>
-//                     <Col span={2}>
-//                         <div className="frontman" />
-//                     </Col>
-//                     <Col span={2}>
-//                         <div className="circle" />
-//                     </Col>
-//                     <Col span={2}>
-//                         <div className="triangle" />
-//                     </Col>
-//                     <Col span={2}>
-//                         <div className="player-067" />
-//                     </Col>
-//                     <Col span={8} align="middle">
-//                         <div className="xs-title-logo" />
-//                         <div className="gachapon" />
-//                     </Col>
-//                     <Col span={3}>
-//                         {/* <App /> */}
-//                         <button class="pushable" style={{ marginTop: '47em', marginBottom: '1em' }}>
-//                             <span class="front" style={{ paddingLeft: '2.9em', paddingRight: '2.9em' }}>
-//                                 MINT
-//                             </span>
-//                         </button>
-//                         <button class="pushable">
-//                             <span class="shadow"></span>
-//                             <span class="front">
-//                                 CONNECT
-//                             </span>
-//                         </button>
-//                     </Col>
-//                 </Row>
-//             </div>
-//         )
-//     }
-// }
 
 export default MintSection;

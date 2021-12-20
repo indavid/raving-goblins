@@ -167,14 +167,15 @@ $pointer-space: 20px; */
   background-repeat: no-repeat;
   width: 150px;
   height: 74px;
+  margin-top: 8em;
 }
 
 .gachapon {
   background-image : url("../static/assets/gachapon.gif");
   background-position: center;
   background-repeat: no-repeat;
-  width: 440px;
-  height: 750px;
+  width: 330px;
+  height: 595px;
 }
 
 .frontman {
@@ -183,17 +184,7 @@ $pointer-space: 20px; */
     background-repeat: no-repeat;
     width: 300px;
     height: 210px;
-    margin-top: 42em;
-}
-
-.circle {
-  background-image : url("../static/assets/circle.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  width: 300px;
-  height: 210px;
-  margin-top: 44em;
-  margin-left: 0.3em;
+    margin-top: 38em;
 }
 
 .triangle {
@@ -202,7 +193,7 @@ $pointer-space: 20px; */
   background-repeat: no-repeat;
   width: 300px;
   height: 210px;
-  margin-top: 44em;
+  margin-top: 40em;
   margin-left: 2em;
 }
 
@@ -212,8 +203,8 @@ $pointer-space: 20px; */
   background-repeat: no-repeat;
   width: 300px;
   height: 210px;
-  margin-top: 44em;
-  margin-left: 1.7em;
+  margin-top: 40em;
+  margin-left: 3.3em;
 }
 
 /** For the Team Page **/

@@ -96,7 +96,7 @@ ReactDOM.render(
         backgroundColor: '#300449',
         padding: '2em',
       }}>
-        Every Single Moments ©2021 Crafted by David
+        Every Single Moment ©2021 Crafted by David
       </Footer>
   </ApolloProvider>,
   document.getElementById("root"),

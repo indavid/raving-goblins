@@ -34,8 +34,15 @@ class HomeSection extends React.Component {
                     </Col>
                     <Col span={8}></Col>
                 </Row>
-                <div class="circle-goblin"></div>
-                <div class="player-goblin"></div>
+                <Row>
+                    <Col span={6} align="right" style={{ marginLeft: '18em' }}>
+                        <div class="circle-goblin" />
+                    </Col>
+                    <Col span={6} align="left" style={{ marginRight: '10em' }}>
+                        <div class="player-goblin" />
+                    </Col>
+                    <Col span={12}></Col>
+                </Row>
             </div>
         )
     }
