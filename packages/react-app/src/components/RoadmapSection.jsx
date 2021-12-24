@@ -20,40 +20,37 @@ class RoadmapSection extends React.Component {
                 <Row>
                     <Col span={24} align="middle" ></Col>
                 </Row>
-                <Row 
-                    align="middle"
-                    style={{ marginBottom: '0.5em' }}
-                >
+                <Row align="middle" style={{ marginTop: '3em', marginBottom: '5em' }}>
                     <Col span={5}></Col>
                     <Col span={14}>
                         <div className="text-2">
                             <Typography>
-                                <Title style={{ color: '#0CEEFF' }}>
+                                <Title style={{ color: '#0CEEFF', marginTop: '0.5em' }}>
                                     Roadmap
                                 </Title>
                                 <Title style={{ color: '#0CEEFF' }}>
                                     1
                                 </Title>
                                 <Paragraph style={{ color: '#EBFEFF' }}>
-                                    SquidGameEvent: Calling all gamblers to risk their lives to win a Legend Raving Goblin. All you need a Raving Goblins Squid Game NFT but only 456 Squid Game NFTs are dropping in this 1st Drop. So hurry up and mint.
+                                    Pre-Sale: The first drop of 2,000 Raving Goblins will be released to friends, family, and insiders. Each Goblin will go for 0.03 ETH. First come, first serve, so hurry up and mint!
                                 </Paragraph>
                                 <Title style={{ color: '#0CEEFF', marginBottom: '0.5em' }}>
                                     2
                                 </Title>
                                 <Paragraph style={{ color: '#EBFEFF' }}>
-                                    The First Drop: The first drop of 2,000 Raving Goblins will be released on 12AM KST December 19, 2021. Each Goblin will go for or 0.03 ETH. First come first serve, so don’t come late to the party.
+                                    Squid Goblins Game: Calling all our gamblers to risk their lives to win a Legend Raving Goblin or Prizes up to $20,000. All you need is a Squid Game Raving Goblins NFT but all the 456 Squid Game Goblins will be hidden amongst the 2000 Pre-Sale Goblins. 
                                 </Paragraph>
                                 <Title style={{ color: '#0CEEFF' }}>
                                     3
-                                </Title>kr
+                                </Title>
                                 <Paragraph style={{ color: '#EBFEFF' }}>
-                                    Somewhere in Seoul, South Korea: all Raving Goblins will gain access to exclusive parties held in legendary clubs owned by the founding Raving Goblins team.
+                                    Somewhere in Seoul, South Korea: all Raving Goblins will gain access to the most exclusive parties held in the richest clubs owned by the founding Raving Goblins team.
                                 </Paragraph>
                                 <Title style={{ color: '#0CEEFF' }}>
                                     4
                                 </Title>
                                 <Paragraph style={{ color: '#EBFEFF' }}>
-                                    RavingGoblins DAO: Implementing a  DAO will help create a community focused on deciding our direction and expansion of our Web3 ecosystem.
+                                    RavingGoblins DAO: We will be implementing a DAO to solidify a community dedicated to our Web3 ecosystem.
                                 </Paragraph>
                             </Typography>
                             <div class="arrow"></div>

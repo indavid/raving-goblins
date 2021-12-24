@@ -15,7 +15,7 @@ class HomeSection extends React.Component {
                     backgroundSize: 'cover',
                 }}
             >
-                <Row style={{ marginBottom: '0.5em' }} >
+                <Row style={{ marginTop: '25vh' }} >
                     <Col span={24} align="middle">
                         <div className="title-logo" />
                     </Col>
@@ -30,19 +30,19 @@ class HomeSection extends React.Component {
                                 </span>
                             </button>
                         </a>
-                        <div class="arrow"></div>
+                        <div class="arrow" style={{ marginTop: '3vh' }}></div>
                     </Col>
                     <Col span={8}></Col>
                 </Row>
-                <Row>
-                    <Col span={6} align="right" style={{ marginLeft: '18em' }}>
+                <Row style={{ marginTop: '1vh' }}>
+                    <Col span={6}></Col>
+                    <Col span={6} align="left">
                         <div class="circle-goblin" />
                     </Col>
-                    <Col span={6} align="left" style={{ marginRight: '10em' }}>
+                    <Col span={6} align="right">
                         <div class="player-goblin" />
                     </Col>
-                    <Col span={12}></Col>
-                </Row>
+\                </Row>
             </div>
         )
     }

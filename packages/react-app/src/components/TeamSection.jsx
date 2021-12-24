@@ -17,21 +17,18 @@ class TeamSection extends React.Component {
                     backgroundSize: 'cover',
                 }}
             >
-                <Row 
-                    align="middle"
-                    style={{ marginBottom: '0.5em' }}
-                >
+                <Row align="middle" style={{ marginTop: '3em', marginBottom: '5em' }}>
                     <Col span={5}></Col>
-                    <Col span={14}>
-                        <div className="text">
+                    <Col span={14} >
                             <div className="sm-2-title-logo" />
-                            <Typography>
-                                <Title style={{ color: '#0CEEFF', textAlign: 'center', fontSize: '2.5em' }}>
-                                    TEAM
-                                </Title>
-                            </Typography>
-                            <div className="team" />
-                        </div>
+                            <div className="text">
+                                <Typography>
+                                    <Title style={{ color: '#0CEEFF', textAlign: 'center' }}>
+                                        TEAM
+                                    </Title>
+                                </Typography>
+                                <div className="team" />
+                            </div>
                     </Col>
                     <Col span={5}></Col>
                 </Row>

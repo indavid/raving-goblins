@@ -558,7 +558,7 @@ function MintSection(props) {
         backgroundSize: 'cover',
       }}
     >
-      <Row>
+      <Row align="middle" style={{ marginBottom: '5em' }}>
         <Col span={2}>
           <div className="frontman" />
         </Col>
@@ -574,7 +574,7 @@ function MintSection(props) {
           <div className="gachapon" />
         </Col>
         <Col span={3}>
-          <button class="pushable" style={{ marginTop: '43em', marginBottom: '2em' }}
+          <button class="pushable" style={{ marginTop: '40em', marginBottom: '2em' }}
               onClick={() => {
                 const rnd = getRandomInt(onSaleAssets.length);
                 console.log("== Random Mint ==>", rnd, onSaleAssets.length);
