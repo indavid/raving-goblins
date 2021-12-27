@@ -13,7 +13,7 @@ packages/react-app/aws.json
 packages/hardhat/artifacts*
 packages/react-app/contracts*
 packages/react-app/.secret
-packages/react-app/artifacts
+
 packages/react-app/build
 packages/react-app/cache
 
@@ -56,7 +56,7 @@ build
 
 #Hardhat files
 cache
-artifacts
+
 
 # misc
 .DS_Store
