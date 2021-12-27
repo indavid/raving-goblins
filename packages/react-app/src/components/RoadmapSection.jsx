@@ -38,13 +38,13 @@ class RoadmapSection extends React.Component {
                                     2
                                 </Title>
                                 <Paragraph style={{ color: '#EBFEFF' }}>
-                                    Squid Goblins Game: Calling all our gamblers to risk their lives to win a Legend Raving Goblin or Prizes up to $20,000. All you need is a Squid Game Raving Goblins NFT but all the 456 Squid Game Goblins will be hidden amongst the 2000 Pre-Sale Goblins. 
+                                    Squid Goblins Game: Calling all our gamblers to risk their lives to win a Legend Raving Goblin or Prizes up to $20,000. All you need is a Squid Game Raving Goblins NFT but you need to find 1 of the 456 Squid Game Goblins hidden amongst the 2000 Pre-Sale Goblins. 
                                 </Paragraph>
                                 <Title style={{ color: '#0CEEFF' }}>
                                     3
                                 </Title>
                                 <Paragraph style={{ color: '#EBFEFF' }}>
-                                    Somewhere in Seoul, South Korea: all Raving Goblins will gain access to the most exclusive parties held in the richest clubs owned by the founding Raving Goblins team.
+                                    Somewhere in Seoul, South Korea: all Raving Goblins will gain access to the most exclusive and wildest parties held in clubs owned by the founding Raving Goblins team.
                                 </Paragraph>
                                 <Title style={{ color: '#0CEEFF' }}>
                                     4

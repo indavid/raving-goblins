@@ -1,11 +1,11 @@
 pragma solidity >=0.6.0 <0.7.0;
-//SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: MIT
 
-//import "hardhat/console.sol";
+// import "hardhat/console.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
-//import "@openzeppelin/contracts/access/Ownable.sol";
-//learn more: https://docs.openzeppelin.com/contracts/3.x/erc721
+// import "@openzeppelin/contracts/access/Ownable.sol";
+// learn more: https://docs.openzeppelin.com/contracts/3.x/erc721
 
 // GET LISTED ON OPENSEA: https://testnets.opensea.io/get-listed/step-two
 
@@ -21,9 +21,9 @@ contract YourCollectible is ERC721 {
     }
   }
 
-  //this marks an item in IPFS as "forsale"
+  // this marks an item in IPFS as "forsale"
   mapping (bytes32 => bool) public forSale;
-  //this lets you look up a token by the uri (assuming there is only one of each uri for now)
+  // this lets you look up a token by the uri (assuming there is only one of each uri for now)
   mapping (bytes32 => uint256) public uriToTokenId;
 
   function mintItem(string memory tokenURI)
@@ -33,7 +33,7 @@ contract YourCollectible is ERC721 {
   {
       bytes32 uriHash = keccak256(abi.encodePacked(tokenURI));
 
-      //make sure they are only minting something that is marked "forsale"
+      // make sure they are only minting something that is marked "forsale"
       require(forSale[uriHash],"NOT FOR SALE");
       require(msg.value >= 0.03 ether);
       forSale[uriHash]=false;

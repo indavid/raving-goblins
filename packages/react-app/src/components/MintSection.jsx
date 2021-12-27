@@ -66,12 +66,12 @@ const NETWORKCHECK = true;
 const STARTING_JSON = {
   description: "Octopus Game Participant 001",
   external_url: "http://ravinggoblins.io", // <-- this can link to a page for the specific file too
-  image: "https://gateway.pinata.cloud/ipfs/QmfJRFsmZpuVwEvxe6C3kFFyuotG4XDwFrxv25EQ6MxcBS/SQUID_ROUND_2_2.png",
+  image: "https://gateway.pinata.cloud/ipfs/QmciNrUkcmDF32HcDvvqqXz8XoMdczsCP3DVCgYfAyEYzR/1.png",
   name: "001",
   attributes: [
     {
       trait_type: "Rarity",
-      value: "Squid Game",
+      value: "Legendary",
     },
   ],
 };
@@ -184,7 +184,7 @@ const web3Modal = new Web3Modal({
 
 // main react function for main page
 function MintSection(props) {
-    const mainnetProvider =
+  const mainnetProvider =
     poktMainnetProvider && poktMainnetProvider._isProvider
     ? poktMainnetProvider
     : scaffoldEthProvider && scaffoldEthProvider._network
@@ -194,7 +194,7 @@ function MintSection(props) {
     const [injectedProvider, setInjectedProvider] = useState();
     const [address, setAddress] = useState();
 
-    const logoutOfWeb3Modal = async () => {
+  const logoutOfWeb3Modal = async () => {
         await web3Modal.clearCachedProvider();
         if (injectedProvider && injectedProvider.provider && typeof injectedProvider.provider.disconnect == "function") {
         await injectedProvider.provider.disconnect();

@@ -1,4 +1,4 @@
-# 🏗 scaffold-eth - 🎫 Raving Goblins NFT
+# 👺 Raving Goblins NFT
 
 > (Counterfactual NFT minting example...)
 
@@ -7,7 +7,7 @@ Deployer pays around (0.283719 ETH ~$500 at todays gas and price) for the initia
 # 🏃‍♀️ Quick Start
 Required: [Git](https://git-scm.com/downloads), [Node](https://nodejs.org/dist/latest-v12.x/), [Yarn](https://classic.yarnpkg.com/en/docs/install/#mac-stable) and [Hardhat](https://hardhat.org/getting-started/#installation).
 
-> clone/fork 🏗 raving-goblins and get setup:
+> clone/fork 👺 raving-goblins and get setup:
 
 ```bash
 git clone https://github.com/indavid/raving-goblins.git
@@ -178,4 +178,13 @@ yarn surge
 
 yarn s3
 
-===================================================== [⏫ back to the top ⏫](https://github.com/austintgriffith/scaffold-eth#-scaffold-eth)
+
+# 📁 Files need to yarn start project
+> ⚙️ make sure to ask for these files from david
+
+```
+- packages/hardhat/uploaded.json
+- packages/hardhat/mnemonic.txt
+- packages/hardhat/(public_address).txt
+- packages/react-app/src/assets.js
+
