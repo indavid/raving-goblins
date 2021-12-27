@@ -17,6 +17,9 @@
   "dependencies": {
     "@ant-design/icons": "^4.2.2",
     "@apollo/client": "^3.3.21",
+    "@nomiclabs/hardhat-ethers": "^2.0.2",
+    "@nomiclabs/hardhat-waffle": "^2.0.1",
+    "@openzeppelin/contracts": "^4.3.2",
     "@apollo/react-hooks": "^4.0.0",
     "@fullpage/react-fullpage": "^0.1.19",
     "@portis/web3": "^4.0.5",

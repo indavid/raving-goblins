@@ -32,6 +32,17 @@ import Portis from "@portis/web3";
 import Fortmatic from "fortmatic";
 import Authereum from "authereum";
 
+
+import { 
+  nftaddress, nftmarketaddress
+} from '../config';
+
+import NFT from '../artifacts/contracts/NFT.sol/NFT.json';
+import Market from '../artifacts/contracts/NFTMarket.sol/NFTMarket.json';
+
+
+
+
 const { ethers } = require("ethers");
 
 const { BufferList } = require("bl");
@@ -354,6 +365,57 @@ function MintSection(props) {
         mainnetContracts,
     ]);
 
+
+// Mint NFT 
+
+async function MintNFT() {
+   
+  try {
+
+    const web3Modal = new Web3Modal()
+    const connection = await web3Modal.connect()
+    const provider = new ethers.providers.Web3Provider(connection)    
+    const signer = provider.getSigner()
+
+    let contract = new ethers.Contract(nftaddress, NFT.abi, signer)
+
+    let listingPrice = await contract.getPrice()
+    listingPrice = listingPrice.toString()
+
+    transaction = await contract._claimNft({ value: listingPrice })
+  
+}catch(error) {
+  handleClose();
+    const res= error.code 
+        if (res==-32603){ 
+
+            console.log(`You don't have enough funds to proceed`)
+
+        } else if (res==4001) {
+            console.log(`request rejected`)
+
+        }
+        else if (res==4901) {
+            console.log(`you are not connected to the wallet`)
+
+        } else if (res==4900) {
+            console.log(`you are disconnected to the blockchain`)
+
+        }
+        else if (res==4901) {
+            console.log(`you are disconnected to the blockchain`)
+
+        } else {
+            console.log(`Transaction failed, try later`)
+            console.log(error)
+        }
+            
+
+}
+
+}
+
+
     // making sure wallet's network matches with website's network
     let networkDisplay = "";
     if (NETWORKCHECK && localChainId && selectedChainId && localChainId !== selectedChainId) {
@@ -575,6 +637,13 @@ function MintSection(props) {
         </Col>
         <Col span={3}>
           <button class="pushable" style={{ marginTop: '40em', marginBottom: '2em' }}
+          onClick={() => MintNFT() }
+              
+          >
+
+            {
+              /** 
+               * 
               onClick={() => {
                 const rnd = getRandomInt(onSaleAssets.length);
                 console.log("== Random Mint ==>", rnd, onSaleAssets.length);
@@ -587,7 +656,8 @@ function MintSection(props) {
                   );
                 }
               }}
-          >
+              */
+            }
             <span class="front" style={{ paddingLeft: '2.9em', paddingRight: '2.9em' }}>
                 MINT
             </span>
