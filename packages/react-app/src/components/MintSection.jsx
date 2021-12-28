@@ -385,7 +385,7 @@ async function MintNFT() {
     transaction = await contract._claimNft({ value: listingPrice })
   
 }catch(error) {
-  handleClose();
+
     const res= error.code 
         if (res==-32603){ 
 
