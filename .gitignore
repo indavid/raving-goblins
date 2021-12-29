@@ -11,8 +11,6 @@ packages/react-app/aws.json
 **/node_modules
 
 packages/hardhat/artifacts*
-packages/react-app/contracts*
-packages/react-app/.secret
 
 packages/react-app/build
 packages/react-app/cache
