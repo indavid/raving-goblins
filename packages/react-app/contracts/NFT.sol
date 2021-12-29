@@ -21,8 +21,6 @@ contract NFT is ERC721Enumerable, ERC721URIStorage, AccessControlEnumerable, Pau
     Counters.Counter private _tokenIds;
     address contractAddress;
     uint256 price = 0.03 ether; // all NFTs default price show be implemented in the smart contract not coming from frontend
-    
-    address payable owners ;
 
     address public admin ;
 
@@ -38,8 +36,7 @@ contract NFT is ERC721Enumerable, ERC721URIStorage, AccessControlEnumerable, Pau
     string  public baseUrl ="https:/dsdsdsdsddsdsd/";
 
   constructor () ERC721("Raving Goblins ERC-721 token", "RGT") {
-   
-    owners = payable(msg.sender);
+ 
     admin = msg.sender;
 
    /* let's give to the team for hardships*/
