@@ -623,17 +623,8 @@ async function MintNFT() {
         </Col>
         <Col span={3}>
 
-         
-
+    
           <button class="pushable" style={{ marginTop: '40em', marginBottom: '2em' }}
-          onClick={() => MintNFT() }
-          disabled={minting?true:false}
-              
-          >
-
-            {
-              /** 
-               * 
               onClick={() => {
                 const rnd = getRandomInt(onSaleAssets.length);
                 console.log("== Random Mint ==>", rnd, onSaleAssets.length);
@@ -646,8 +637,11 @@ async function MintNFT() {
                   );
                 }
               }}
-              */
-            }
+          disabled={minting?true:false}
+              
+          >
+
+       
             <span class="front" style={{ paddingLeft: '2.9em', paddingRight: '2.9em' }}>
                 MINT 
             </span>

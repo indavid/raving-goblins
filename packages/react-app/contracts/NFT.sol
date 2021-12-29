@@ -19,35 +19,18 @@ contract NFT is ERC721Enumerable, ERC721URIStorage, AccessControlEnumerable, Pau
 
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
-    address contractAddress;
+
     uint256 price = 0.03 ether; // all NFTs default price show be implemented in the smart contract not coming from frontend
 
     address public admin ;
 
-    /* our team addresses */
+    string  baseUrl ="";
 
-    address teamM1 = 0x324a3D5951F94b40C566B180066D6B2ab7BE8D54;
-    address teamM2 = 0x324a3D5951F94b40C566B180066D6B2ab7BE8D54;
-    address teamM3 = 0x324a3D5951F94b40C566B180066D6B2ab7BE8D54;
-    address teamM4 = 0x324a3D5951F94b40C566B180066D6B2ab7BE8D54;
-    address teamM5 = 0x324a3D5951F94b40C566B180066D6B2ab7BE8D54;
-    address teamM6 = 0x324a3D5951F94b40C566B180066D6B2ab7BE8D54;
-
-    string  public baseUrl ="https:/dsdsdsdsddsdsd/";
-
-  constructor () ERC721("Raving Goblins ERC-721 token", "RGT") {
+  constructor (string _baseUrl) ERC721("Raving Goblins ERC-721 token", "RGT") {
  
     admin = msg.sender;
 
-   /* let's give to the team for hardships*/
-
-    _mintNft(teamM1); 
-    _mintNft(teamM2); 
-    _mintNft(teamM3); 
-    _mintNft(teamM4); 
-    _mintNft(teamM5); 
-    _mintNft(teamM6); 
-    
+    baseUrl=_baseUrl;
    
   }
 
@@ -72,19 +55,7 @@ contract NFT is ERC721Enumerable, ERC721URIStorage, AccessControlEnumerable, Pau
   }
 
 
- function _mintNft(address t) internal { 
-    
-    _tokenIds.increment();
-    uint256 newItemId = _tokenIds.current();
-    _mint(t, newItemId);
-
-    _setTokenURI(newItemId, string(abi.encodePacked(baseUrl,Strings.toString(newItemId)))); // may add rendomness here
-      
-    
-  }
-
-
-  function _claimNft() public payable nonReentrant {
+  function mintItem(uint256 _randomNumber) public payable nonReentrant {
 
     require(msg.value >= price, "Unsufficient balance");
 
@@ -92,7 +63,7 @@ contract NFT is ERC721Enumerable, ERC721URIStorage, AccessControlEnumerable, Pau
     uint256 newItemId = _tokenIds.current();
     _mint(msg.sender, newItemId);
     
-    string memory _URI = string (abi.encodePacked(baseUrl,Strings.toString(newItemId))); // may add randomness here, get a random number from frontend and pass it to this function
+    string memory _URI = string (abi.encodePacked(baseUrl,Strings.toString(_randomNumber))); // may add randomness here, get a random number from frontend and pass it to this function
 
     _setTokenURI(newItemId, _URI);
 
@@ -101,6 +72,17 @@ contract NFT is ERC721Enumerable, ERC721URIStorage, AccessControlEnumerable, Pau
     
   }
 
+  function giveAway(address _team, uint256 _randomNumber) onlyOwner public view returns (bool){
+
+    _tokenIds.increment();
+    uint256 newItemId = _tokenIds.current();
+    _mint(_team, newItemId);
+    string memory _URI = string (abi.encodePacked(baseUrl,Strings.toString(_randomNumber))); // may add randomness here, get a random number from frontend and pass it to this function
+
+    _setTokenURI(newItemId, _URI);
+   
+    return true
+  }
 
 
   function supportsInterface(bytes4 interfaceId) public view virtual override(AccessControlEnumerable, ERC721, ERC721Enumerable) returns (bool) {
