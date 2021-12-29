@@ -24,7 +24,7 @@ contract CoolCats is ERC721Enumerable, Ownable {
         setBaseURI(baseURI);
 
         // team gets the first 4 cats
-        _safeMint( t1, 0);
+        _safeMint( t1, 0); 
         _safeMint( t2, 1);
         _safeMint( t3, 2);
         _safeMint( t4, 3);

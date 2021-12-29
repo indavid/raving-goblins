@@ -13,10 +13,6 @@ contract YourCollectible is ERC721, Ownable {
 
   using Counters for Counters.Counter;
   Counters.Counter private _tokenIds;
-  address public admin ;
-  
-  uint256 price = 0.03 ether; // all NFTs default price show be implemented in the smart contract not coming from frontend
-
 
   constructor(bytes32[] memory assetsForSale) public ERC721("YourCollectible", "YCB") {
     _setBaseURI("https://ipfs.io/ipfs/");
@@ -39,8 +35,7 @@ contract YourCollectible is ERC721, Ownable {
 
       // make sure they are only minting something that is marked "forsale"
       require(forSale[uriHash],"NOT FOR SALE");
-      require(msg.value >= price);
-
+      require(msg.value >= 0.03 ether);
       forSale[uriHash]=false;
 
       _tokenIds.increment();
@@ -51,33 +46,8 @@ contract YourCollectible is ERC721, Ownable {
 
       uriToTokenId[uriHash] = id;
 
-      payable(admin).transfer(price);
-
       return id;
   }
 
-  function giveAway(address _team, string memory tokenURI) onlyOwner public view returns (uint256){
-
-    bytes32 uriHash = keccak256(abi.encodePacked(tokenURI));
-
-    require(forSale[uriHash],"NOT FOR SALE");
-      forSale[uriHash]=false;
-
-    _tokenIds.increment();
-
-      uint256 id = _tokenIds.current();
-      _mint(_team, id);
-      _setTokenURI(id, tokenURI);
-
-      uriToTokenId[uriHash] = id;
-
-      return id;
-  }
-
-   function changePrice(uint256 _newPrice) onlyOwner public returns (bool)  {
-
-    price=_newPrice;
-    return true;
-
-  }
+  
 }
