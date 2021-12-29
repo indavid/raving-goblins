@@ -178,20 +178,6 @@
         }
       ],
       "compiler": "HashLips Art Engine"
-    },
-    {
-      "name": "RavingGoblins #13",
-      "description": "Raving Goblins is a collection of 10000+ unique Goblin NFTs - unique digital collectibles partying on the Ethereum blockchain.",
-      "image": "ipfs://QmdKNyKcjU289ytoabrD1XdQze4yEyWmuKsxudQ4Tutsy4/13.png",
-      "dna": "af9c06252fffd13e5bdaa72c3c143fd358db9d8c",
-      "edition": 13,
-      "date": 1640008472733,
-      "attributes": [
-        {
-          "trait_type": "Superare",
-          "value": "STAR_STEVE-JOBS1"
-        }
-      ],
-      "compiler": "HashLips Art Engine"
     }
+
 ]

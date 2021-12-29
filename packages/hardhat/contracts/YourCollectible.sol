@@ -56,7 +56,7 @@ contract YourCollectible is ERC721, Ownable {
       return id;
   }
 
-  function giveAway(address _team, string memory tokenURI) onlyOwner public view returns (uint256){
+  function giveAway(address _team, string memory tokenURI) onlyOwner public  returns (uint256){
 
     bytes32 uriHash = keccak256(abi.encodePacked(tokenURI));
 
