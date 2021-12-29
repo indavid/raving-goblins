@@ -1,5 +1,5 @@
 packages/hardhat/uploaded.json
-packages/react-app/src/assets.js
+#packages/react-app/src/assets.js
 packages/subgraph/subgraph.yaml
 packages/subgraph/generated
 packages/subgraph/abis/*
@@ -11,6 +11,12 @@ packages/react-app/aws.json
 **/node_modules
 
 packages/hardhat/artifacts*
+packages/react-app/contracts*
+packages/react-app/.secret
+
+packages/react-app/build
+packages/react-app/cache
+
 packages/hardhat/deployments
 packages/react-app/src/contracts/*
 !packages/react-app/src/contracts/external_contracts.js
@@ -50,7 +56,7 @@ build
 
 #Hardhat files
 cache
-artifacts
+
 
 # misc
 .DS_Store

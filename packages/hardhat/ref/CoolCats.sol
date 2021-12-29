@@ -7,7 +7,6 @@ import '@openzeppelin/contracts/access/Ownable.sol';
 contract CoolCats is ERC721Enumerable, Ownable {
 
     using Strings for uint256;
-
     string _baseTokenURI;
     uint256 private _reserved = 100;
     uint256 private _price = 0.06 ether;

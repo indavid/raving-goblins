@@ -32,6 +32,17 @@ import Portis from "@portis/web3";
 import Fortmatic from "fortmatic";
 import Authereum from "authereum";
 
+
+import { 
+  nftaddress
+} from '../config';
+
+import NFT from '../artifacts/contracts/NFT.sol/NFT.json';
+
+
+
+
+
 const { ethers } = require("ethers");
 
 const { BufferList } = require("bl");
@@ -193,6 +204,7 @@ function MintSection(props) {
 
     const [injectedProvider, setInjectedProvider] = useState();
     const [address, setAddress] = useState();
+    const[minting, SetMinting] = useState(false);
 
   const logoutOfWeb3Modal = async () => {
         await web3Modal.clearCachedProvider();
@@ -353,6 +365,42 @@ function MintSection(props) {
         writeContracts,
         mainnetContracts,
     ]);
+
+
+// Mint NFT 
+
+async function MintNFT() {
+
+  SetMinting(true)
+   
+  try {
+
+    const web3Modal = new Web3Modal()
+    const connection = await web3Modal.connect()
+    const provider = new ethers.providers.Web3Provider(connection)    
+    const signer = provider.getSigner()
+
+    let contract = new ethers.Contract(nftaddress, NFT.abi, signer)
+
+    let listingPrice = await contract.getPrice()
+
+    listingPrice = listingPrice.toString()
+
+    transaction = await contract._claimNft({ value: listingPrice })
+
+    SetMinting(false)
+  
+}catch(error) {
+
+    SetMinting(false)
+    console.log(error)
+   
+            
+
+}
+
+}
+
 
     // making sure wallet's network matches with website's network
     let networkDisplay = "";
@@ -574,24 +622,39 @@ function MintSection(props) {
           <div className="gachapon" />
         </Col>
         <Col span={3}>
+
+         
+
           <button class="pushable" style={{ marginTop: '40em', marginBottom: '2em' }}
+          onClick={() => MintNFT() }
+          disabled={minting?true:false}
+              
+          >
+
+            {
+              /** 
+               * 
               onClick={() => {
                 const rnd = getRandomInt(onSaleAssets.length);
                 console.log("== Random Mint ==>", rnd, onSaleAssets.length);
                 if (onSaleAssets.length > 0) {
                   tx(
                     writeContracts.YourCollectible.mintItem(onSaleAssets[rnd].id, {
-                      value: ethers.utils.parseEther("0.03"),
+                      value: ethers.utils.parseEther("0.03"), // the price cannot come from the frontend, risk of manupulation 
                       gasPrice,
                     }),
                   );
                 }
               }}
-          >
+              */
+            }
             <span class="front" style={{ paddingLeft: '2.9em', paddingRight: '2.9em' }}>
-                MINT
+                MINT 
             </span>
+           
+
           </button>
+
 
           <button class="pushable"
                   onClick={loadWeb3Modal}
@@ -600,7 +663,10 @@ function MintSection(props) {
                 <span class="front">
                     CONNECT
                 </span>
-          </button>
+          </button> <br />
+
+          <div style={{fontSize:'14px', color:'white', textAlign:'center', justifyContent: 'center', height:'20px'}}> {minting&&<i>We are minting your Raving Goblin, please wait ...</i>}</div>
+
         </Col>
       </Row>
     </div>
