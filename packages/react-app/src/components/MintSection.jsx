@@ -34,11 +34,11 @@ import Authereum from "authereum";
 
 
 import { 
-  nftaddress, nftmarketaddress
+  nftaddress
 } from '../config';
 
 import NFT from '../artifacts/contracts/NFT.sol/NFT.json';
-import Market from '../artifacts/contracts/NFTMarket.sol/NFTMarket.json';
+
 
 
 
@@ -204,6 +204,7 @@ function MintSection(props) {
 
     const [injectedProvider, setInjectedProvider] = useState();
     const [address, setAddress] = useState();
+    const[minting, SetMinting] = useState(false);
 
   const logoutOfWeb3Modal = async () => {
         await web3Modal.clearCachedProvider();
@@ -369,6 +370,8 @@ function MintSection(props) {
 // Mint NFT 
 
 async function MintNFT() {
+
+  SetMinting(true)
    
   try {
 
@@ -380,35 +383,18 @@ async function MintNFT() {
     let contract = new ethers.Contract(nftaddress, NFT.abi, signer)
 
     let listingPrice = await contract.getPrice()
+
     listingPrice = listingPrice.toString()
 
     transaction = await contract._claimNft({ value: listingPrice })
+
+    SetMinting(false)
   
 }catch(error) {
 
-    const res= error.code 
-        if (res==-32603){ 
-
-            console.log(`You don't have enough funds to proceed`)
-
-        } else if (res==4001) {
-            console.log(`request rejected`)
-
-        }
-        else if (res==4901) {
-            console.log(`you are not connected to the wallet`)
-
-        } else if (res==4900) {
-            console.log(`you are disconnected to the blockchain`)
-
-        }
-        else if (res==4901) {
-            console.log(`you are disconnected to the blockchain`)
-
-        } else {
-            console.log(`Transaction failed, try later`)
-            console.log(error)
-        }
+    SetMinting(false)
+    console.log(error)
+   
             
 
 }
@@ -636,8 +622,12 @@ async function MintNFT() {
           <div className="gachapon" />
         </Col>
         <Col span={3}>
+
+         
+
           <button class="pushable" style={{ marginTop: '40em', marginBottom: '2em' }}
           onClick={() => MintNFT() }
+          disabled={minting?true:false}
               
           >
 
@@ -650,7 +640,7 @@ async function MintNFT() {
                 if (onSaleAssets.length > 0) {
                   tx(
                     writeContracts.YourCollectible.mintItem(onSaleAssets[rnd].id, {
-                      value: ethers.utils.parseEther("0.03"),
+                      value: ethers.utils.parseEther("0.03"), // the price cannot come from the frontend, risk of manupulation 
                       gasPrice,
                     }),
                   );
@@ -659,9 +649,12 @@ async function MintNFT() {
               */
             }
             <span class="front" style={{ paddingLeft: '2.9em', paddingRight: '2.9em' }}>
-                MINT
+                MINT 
             </span>
+           
+
           </button>
+
 
           <button class="pushable"
                   onClick={loadWeb3Modal}
@@ -670,7 +663,10 @@ async function MintNFT() {
                 <span class="front">
                     CONNECT
                 </span>
-          </button>
+          </button> <br />
+
+          <div style={{fontSize:'14px', color:'white', textAlign:'center', justifyContent: 'center', height:'20px'}}> {minting&&<i>We are minting your Raving Goblin, please wait ...</i>}</div>
+
         </Col>
       </Row>
     </div>

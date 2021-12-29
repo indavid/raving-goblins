@@ -3,11 +3,6 @@ const fs = require('fs');
 
 async function main() {
 
-  const NFTMarket = await hre.ethers.getContractFactory("NFTMarket");
-  const nftMarket = await NFTMarket.deploy();
-  await nftMarket.deployed();
-  console.log("nftMarket deployed to:", nftMarket.address);
-
   const NFT = await hre.ethers.getContractFactory("NFT");
   //const nft = await NFT.deploy(nftMarket.address);
   const nft = await NFT.deploy();
@@ -15,7 +10,7 @@ async function main() {
   console.log("nft deployed to:", nft.address);
 
   let config = `
-  export const nftmarketaddress = "${nftMarket.address}"
+
   export const nftaddress = "${nft.address}"
 
   `
