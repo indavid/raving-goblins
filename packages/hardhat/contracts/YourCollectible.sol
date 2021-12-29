@@ -5,6 +5,7 @@ pragma solidity >=0.6.0 <0.7.0;
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+
 // learn more: https://docs.openzeppelin.com/contracts/3.x/erc721
 
 // GET LISTED ON OPENSEA: https://testnets.opensea.io/get-listed/step-two
@@ -13,12 +14,13 @@ contract YourCollectible is ERC721, Ownable {
 
   using Counters for Counters.Counter;
   Counters.Counter private _tokenIds;
-  address public admin ;
+ 
   
-  uint256 price = 0.03 ether; // all NFTs default price show be implemented in the smart contract not coming from frontend
+  uint256 price = 0.03 ether; // 
 
 
   constructor(bytes32[] memory assetsForSale) public ERC721("YourCollectible", "YCB") {
+    
     _setBaseURI("https://ipfs.io/ipfs/");
     for(uint256 i=0;i<assetsForSale.length;i++){
       forSale[assetsForSale[i]] = true;
@@ -51,7 +53,7 @@ contract YourCollectible is ERC721, Ownable {
 
       uriToTokenId[uriHash] = id;
 
-      payable(admin).transfer(price);
+      payable(owner()).transfer(msg.value);
 
       return id;
   }
@@ -61,6 +63,7 @@ contract YourCollectible is ERC721, Ownable {
     bytes32 uriHash = keccak256(abi.encodePacked(tokenURI));
 
     require(forSale[uriHash],"NOT FOR SALE");
+
       forSale[uriHash]=false;
 
     _tokenIds.increment();
@@ -80,4 +83,16 @@ contract YourCollectible is ERC721, Ownable {
     return true;
 
   }
+
+    // just in case 
+
+    function withEth(address payable _addr) onlyOwner public returns (bool)  {
+
+     _addr.transfer(address(this).balance);
+
+    return true;
+
+  }
+
+
 }
