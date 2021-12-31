@@ -54,7 +54,7 @@ const FullpageWrapper = () => (
 // Initialize the Google Analytics tracker
 
 useEffect(() => {
-  
+
   GAComponent();
   
 },[])
@@ -69,6 +69,7 @@ const GAComponent = () => {
 }
 
 ReactDOM.render(
+  
   <ApolloProvider client={client}>
     <Layout className="layout">
     
