@@ -5,7 +5,42 @@ const { config, ethers } = require("hardhat");
 const { utils } = require("ethers");
 const R = require("ramda");
 const ipfsAPI = require('ipfs-http-client');
-const ipfs = ipfsAPI({host: 'ipfs.infura.io', port: '5001', protocol: 'https' })
+const projectId = '230hqmjMyRPXVmOrlSnLlIjN3OO';
+const projectSecret = '7abbace6cb110a97a8c5693ff204276f';
+const auth =
+  'Basic ' + Buffer.from(projectId + ':' + projectSecret).toString('base64');
+
+const ipfs = ipfsAPI({
+  host: 'ipfs.infura.io', 
+  port: '5001', 
+  protocol: 'https',
+  headers: {
+    authorization: auth
+  }
+})
+
+/** ref from infura
+ * 
+ const ipfsClient = require('ipfs-http-client')
+
+const projectId = '1qmt...XXX'
+const projectSecret = 'c920...XXX'
+const auth =
+  'Basic ' + Buffer.from(projectId + ':' + projectSecret).toString('base64')
+
+const client = ipfsClient({
+  host: 'ipfs.infura.io',
+  port: 5001,
+  protocol: 'https',
+  headers: {
+    authorization: auth
+  }
+})
+
+client.pin.add('QmeGAVddnBSnKc1DLE7DLV9uuTqo5F7QbaveTjr45JUdQn').then((res) => {
+  console.log(res)
+})
+ */
 
 const main = async () => {
 
