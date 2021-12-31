@@ -15,11 +15,11 @@ contract YourCollectible is ERC721, Ownable {
   using Counters for Counters.Counter;
   Counters.Counter private _tokenIds;
  
-  
-  uint256 price = 0.03 ether; // 
+  uint256 internal _possibleToMint = 2000;
+  uint256 internal price = 0.03 ether; // 
 
 
-  constructor(bytes32[] memory assetsForSale) public ERC721("YourCollectible", "YCB") {
+  constructor(bytes32[] memory assetsForSale) public ERC721("Raving Goblings ERC721 Token", "RGT") {
     
     _setBaseURI("https://ipfs.io/ipfs/");
     for(uint256 i=0;i<assetsForSale.length;i++){
@@ -42,6 +42,7 @@ contract YourCollectible is ERC721, Ownable {
       // make sure they are only minting something that is marked "forsale"
       require(forSale[uriHash],"NOT FOR SALE");
       require(msg.value >= price);
+      require(_possibleToMint>0,"First drop is over");
 
       forSale[uriHash]=false;
 
@@ -54,6 +55,8 @@ contract YourCollectible is ERC721, Ownable {
       uriToTokenId[uriHash] = id;
 
       payable(owner()).transfer(msg.value);
+
+      _possibleToMint--;
 
       return id;
   }
@@ -74,6 +77,7 @@ contract YourCollectible is ERC721, Ownable {
 
       uriToTokenId[uriHash] = id;
 
+
       return id;
   }
 
@@ -81,8 +85,20 @@ contract YourCollectible is ERC721, Ownable {
 
     price=_newPrice;
     return true;
+    
+    }
 
-  }
+
+
+   function changePossibleToMint(uint256 _newValue) onlyOwner public returns (bool)  {
+
+    _possibleToMint=_newValue;
+
+    return true;
+
+  }  
+
+
 
     // just in case 
 
@@ -93,6 +109,5 @@ contract YourCollectible is ERC721, Ownable {
     return true;
 
   }
-
 
 }
