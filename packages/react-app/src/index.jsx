@@ -18,12 +18,21 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+// Initialize the Google Analytics tracker
+const GAComponent = () => {
+  ReactGA.initialize('UA-215916583-1');
+  ReactGA.pageview(window.location.pathname + window.location.search);
+ // ReactGA.pageview('/'); // returns only the homepage view
+}
+
 /** Importing Background Components for this SPA */
 import { HomeSection, AboutSection, EventSection, MintSection, RaritySection, RoadmapSection, TeamSection } from "./components";
 const anchors = ["Home", "About", "Event", "Mint", "Rarity", "Roadmap", "Team"];
 
 const FullpageWrapper = () => (
-
+  useEffect(() => {
+    GAComponent();
+  },[]),
 
   <ReactFullpage
     licenseKey={'2C3F4625-E1BA4DB2-B8634B88-4ED05985'}
@@ -51,25 +60,7 @@ const FullpageWrapper = () => (
   />
 )
 
-// Initialize the Google Analytics tracker
-
-useEffect(() => {
-
-  GAComponent();
-  
-},[])
-
-const GAComponent = () => {
-  
-    ReactGA.initialize('UA-215916583-1');
-    ReactGA.pageview(window.location.pathname + window.location.search);
-   // ReactGA.pageview('/'); // returns only the homepage view
-
-
-}
-
 ReactDOM.render(
-  
   <ApolloProvider client={client}>
     <Layout className="layout">
     

@@ -30,27 +30,28 @@ class RaritySection extends React.Component {
                                     Rarity
                                 </Title>
                                 <Paragraph style={{ color: '#EBFEFF' }}>
-                                    All RavingGoblins are cool and fun but some of them have traits that make them more cool and fun.
+                                    All RavingGoblins are dope, but they all come in different tiers. The common ones are comprised of a unique body, bat, hat, scarf, shoes, and background. The rare ones are limited editions of Korean royalty, artists, musicians, stars, ravers, and more.
                                 </Paragraph>
                                 <Title level={2} style={{ color: '#B9F8FD' }}>
-                                    Legend: 0.01%-0.05%  |
-                                    Superare: 0.06%-0.1% |
-                                    Rare: 0.14%-0.29% |
-                                    Uncommon: 0.38%-1.9% |
-                                    Common: 3.81%-19.05%
+                                    Legend: 0.5%  |
+                                    Superare: 2.4% |
+                                    Rare: 8.4% |
+                                    Uncommon: 2.2% |
+                                    Squid Game: 4.4% |
+                                    Common: 82.2%
                                 </Title>
                                 <Title style={{ color: '#0CEEFF', marginBottom: '0.5em' }}>
                                     Utility
                                 </Title>
                                 <Paragraph style={{ color: '#EBFEFF' }}>
-                                    Minting RavingGoblins will give you an access to the most exclusive degenerative party community in the world. We are not just bringing the party to you but you'll have the chance to build the party with us.
-                                    We will be creating the dopest clubs to party the next millenia away in the metaverse.
+                                    Minting RavingGoblins will give you an access to the most exclusive degenerative party community in the world. We are not just bringing the party to you but we need your help to bring the party to everyone else.
+                                    Together we will be building the dopest clubs to party the next millennium away.
                                 </Paragraph>
                                 <Title style={{ color: '#0CEEFF', marginBottom: '0.5em' }}>
                                     Gacha
                                 </Title>
                                 <Paragraph style={{ color: '#EBFEFF' }}>
-                                    Minting a RavingGoblin is a completely randomized with no control from the team and the supernatural power. The gacha system will give equal opportunity to be cool and fun a goblinly way.
+                                    Minting a RavingGoblin is a completely randomized system with no control from the team. The gachapon treats everyone equally and dispenses each type of Raving Goblin according to its stated rarity. May the Ether be with You.
                                 </Paragraph>
                             </Typography>
                             <div className="arrow"></div>

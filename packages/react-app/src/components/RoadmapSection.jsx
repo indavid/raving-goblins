@@ -50,7 +50,7 @@ class RoadmapSection extends React.Component {
                                     4
                                 </Title>
                                 <Paragraph style={{ color: '#EBFEFF' }}>
-                                    RavingGoblins DAO: We will be implementing a DAO to solidify a community dedicated to our Web3 ecosystem.
+                                    RavingGoblins DAO: We will be implementing a DAO to solidify a community dedicated to our Web3 ecosystem. We'll be meeting in the metaverse, in person, and in spirit.
                                 </Paragraph>
                             </Typography>
                             <div className="arrow"></div>
