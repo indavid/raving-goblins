@@ -23,6 +23,8 @@ import { HomeSection, AboutSection, EventSection, MintSection, RaritySection, Ro
 const anchors = ["Home", "About", "Event", "Mint", "Rarity", "Roadmap", "Team"];
 
 const FullpageWrapper = () => (
+
+
   <ReactFullpage
     licenseKey={'2C3F4625-E1BA4DB2-B8634B88-4ED05985'}
     anchors={anchors}
@@ -50,18 +52,26 @@ const FullpageWrapper = () => (
 )
 
 // Initialize the Google Analytics tracker
+
+useEffect(() => {
+  
+  GAComponent();
+  
+},[])
+
 const GAComponent = () => {
-  useEffect(() => {
+  
     ReactGA.initialize('UA-215916583-1');
     ReactGA.pageview(window.location.pathname + window.location.search);
-  });
-  return <div></div>
+   // ReactGA.pageview('/'); // returns only the homepage view
+
+
 }
 
 ReactDOM.render(
   <ApolloProvider client={client}>
     <Layout className="layout">
-      <GAComponent />
+    
       <Header 
           style={{ position: 'fixed', zIndex: 1, width: '100%', backgroundColor: '#23003F' }}
       >
