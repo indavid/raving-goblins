@@ -624,7 +624,7 @@ async function MintNFT() {
         <Col span={3}>
 
     
-          <button class="pushable" style={{ marginTop: '40em', marginBottom: '2em' }}
+          <button className="pushable" style={{ marginTop: '40em', marginBottom: '2em' }}
               onClick={() => {
                 const rnd = getRandomInt(onSaleAssets.length);
                 console.log("== Random Mint ==>", rnd, onSaleAssets.length);
@@ -642,7 +642,7 @@ async function MintNFT() {
           >
 
        
-            <span class="front" style={{ paddingLeft: '2.9em', paddingRight: '2.9em' }}>
+            <span className="front" style={{ paddingLeft: '2.9em', paddingRight: '2.9em' }}>
                 MINT 
             </span>
            
@@ -650,11 +650,11 @@ async function MintNFT() {
           </button>
 
 
-          <button class="pushable"
+          <button className="pushable"
                   onClick={loadWeb3Modal}
           >
-            <span class="shadow"></span>
-                <span class="front">
+            <span className="shadow"></span>
+                <span className="front">
                     CONNECT
                 </span>
           </button> <br />

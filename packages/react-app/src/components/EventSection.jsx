@@ -50,7 +50,7 @@ class CommunitySection extends React.Component {
                                     3. $10K Muin Club VIP Table
                                 </Title>
                             </Typography>
-                            <div class="arrow"></div>
+                            <div className="arrow"></div>
                         </div>
                     </Col>
                     <Col span={5}></Col>

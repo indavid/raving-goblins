@@ -24,25 +24,25 @@ class HomeSection extends React.Component {
                     <Col span={8}></Col>
                     <Col span={8}>
                         <a href="#About">
-                            <button class="pushable">
-                                <span class="front">
+                            <button className="pushable">
+                                <span className="front">
                                     START GAME
                                 </span>
                             </button>
                         </a>
-                        <div class="arrow" style={{ marginTop: '3vh' }}></div>
+                        <div className="arrow" style={{ marginTop: '3vh' }}></div>
                     </Col>
                     <Col span={8}></Col>
                 </Row>
                 <Row style={{ marginTop: '1vh' }}>
                     <Col span={6}></Col>
                     <Col span={6} align="left">
-                        <div class="circle-goblin" />
+                        <div className="circle-goblin" />
                     </Col>
                     <Col span={6} align="right">
-                        <div class="player-goblin" />
+                        <div className="player-goblin" />
                     </Col>
-\                </Row>
+                </Row>
             </div>
         )
     }

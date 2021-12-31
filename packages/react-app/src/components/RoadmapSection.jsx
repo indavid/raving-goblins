@@ -53,7 +53,7 @@ class RoadmapSection extends React.Component {
                                     RavingGoblins DAO: We will be implementing a DAO to solidify a community dedicated to our Web3 ecosystem.
                                 </Paragraph>
                             </Typography>
-                            <div class="arrow"></div>
+                            <div className="arrow"></div>
                         </div>
                     </Col>
                     <Col span={5}></Col>

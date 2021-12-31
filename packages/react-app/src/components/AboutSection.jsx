@@ -28,7 +28,7 @@ class AboutSection extends React.Component {
                         <div className="text">
                             <Typography>
                                 <Paragraph style = {{ color: '#EBFEFF' }}>
-                                Raving Goblins is a collection of 10,000+ unique Goblin NFTs - unique digital collectibles partying on the Ethereum blockchain.
+                                Raving Goblins is a collection of 10,443 unique Goblin NFTs - unique digital collectibles partying on the Ethereum blockchain.
                                 </Paragraph>
                                 <Paragraph style = {{ color: '#EBFEFF' }}>
                                     Raving Goblins are from a tiny planet hidden in a galaxy far faraway. Their world is a chaotic world that runs on a cosmic energy filled with music, dance, and art. 
@@ -40,7 +40,7 @@ class AboutSection extends React.Component {
                                     And now the Raving Goblins are here to bring the party to Planet Earth.
                                 </Paragraph>
                             </Typography>
-                            <div class="arrow"></div>
+                            <div className="arrow"></div>
                         </div>
                     </Col>
                     <Col span={5}></Col>

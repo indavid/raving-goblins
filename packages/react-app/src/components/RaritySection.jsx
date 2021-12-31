@@ -43,8 +43,8 @@ class RaritySection extends React.Component {
                                     Utility
                                 </Title>
                                 <Paragraph style={{ color: '#EBFEFF' }}>
-                                    Minting RavingGoblins will give you an access to the most prestigious degenerative party community in the world. We are not bringing party to you but we are here to build the party with you. 
-                                    We will create the biggest, coolest clubs to party the next millenia away in the metaverse.
+                                    Minting RavingGoblins will give you an access to the most exclusive degenerative party community in the world. We are not just bringing the party to you but you'll have the chance to build the party with us.
+                                    We will be creating the dopest clubs to party the next millenia away in the metaverse.
                                 </Paragraph>
                                 <Title style={{ color: '#0CEEFF', marginBottom: '0.5em' }}>
                                     Gacha
@@ -53,7 +53,7 @@ class RaritySection extends React.Component {
                                     Minting a RavingGoblin is a completely randomized with no control from the team and the supernatural power. The gacha system will give equal opportunity to be cool and fun a goblinly way.
                                 </Paragraph>
                             </Typography>
-                            <div class="arrow"></div>
+                            <div className="arrow"></div>
                         </div>
                     </Col>
                     <Col span={5}></Col>
