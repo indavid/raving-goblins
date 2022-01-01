@@ -186,6 +186,7 @@ yarn s3
 ```
 - packages/hardhat/uploaded.json
 - packages/hardhat/mnemonic.txt
+- packages/hardhat/.env
 - packages/hardhat/(public_address).txt
 - packages/react-app/src/assets.js
 ```

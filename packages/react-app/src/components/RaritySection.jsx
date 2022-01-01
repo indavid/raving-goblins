@@ -30,7 +30,7 @@ class RaritySection extends React.Component {
                                     Rarity
                                 </Title>
                                 <Paragraph style={{ color: '#EBFEFF' }}>
-                                    All RavingGoblins are dope, but they all come in different tiers. The common ones are comprised of a unique body, bat, hat, scarf, shoes, and background. The rare ones are limited editions of Korean royalty, artists, musicians, stars, ravers, and more.
+                                    All RavingGoblins are dope, but they all come in different tiers. The common ones are comprised of a unique body, bat, hat, scarf, shoes, and background. The rare ones are limited editions of kings, artists, musicians, stars, ravers, and more.
                                 </Paragraph>
                                 <Title level={2} style={{ color: '#B9F8FD' }}>
                                     Legend: 0.5%  |

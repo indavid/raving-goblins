@@ -32,16 +32,11 @@ import Portis from "@portis/web3";
 import Fortmatic from "fortmatic";
 import Authereum from "authereum";
 
-
 import { 
   nftaddress
 } from '../config';
 
 import NFT from '../artifacts/contracts/NFT.sol/NFT.json';
-
-
-
-
 
 const { ethers } = require("ethers");
 
@@ -52,6 +47,7 @@ const ipfsAPI = require("ipfs-http-client");
 const ipfs = ipfsAPI({ host: "ipfs.infura.io", port: "5001", protocol: "https" });
 
 console.log("📦 Assets: ", assets);
+
 /*
     Welcome to 🏗 scaffold-eth !
     Code:
@@ -102,7 +98,7 @@ const getFromIPFS = async hashToGet => {
   }
 };
 
-// 🛰 ethereu network providers
+// 🛰 ethereum network providers
 if (DEBUG) console.log("📡 Connecting to Mainnet Ethereum");
 // const mainnetProvider = getDefaultProvider("mainnet", { infura: INFURA_ID, etherscan: ETHERSCAN_KEY, quorum: 1 });
 // const mainnetProvider = new InfuraProvider("mainnet",INFURA_ID);
@@ -156,7 +152,6 @@ const web3Modal = new Web3Modal({
           100: "https://dai.poa.network", // xDai
         },
       },
-
     },
     portis: {
       display: {
@@ -202,104 +197,93 @@ function MintSection(props) {
     ? scaffoldEthProvider
     : mainnetInfura;
 
-    const [injectedProvider, setInjectedProvider] = useState();
-    const [address, setAddress] = useState();
-    const[minting, SetMinting] = useState(false);
+  const [injectedProvider, setInjectedProvider] = useState();
+  const [address, setAddress] = useState();
+  const [minting, SetMinting] = useState(false);
 
   const logoutOfWeb3Modal = async () => {
-        await web3Modal.clearCachedProvider();
-        if (injectedProvider && injectedProvider.provider && typeof injectedProvider.provider.disconnect == "function") {
-        await injectedProvider.provider.disconnect();
-        }
-        setTimeout(() => {
-        window.location.reload();
-        }, 1);
-    };
+    await web3Modal.clearCachedProvider();
+    if (injectedProvider && injectedProvider.provider && typeof injectedProvider.provider.disconnect == "function") {
+    await injectedProvider.provider.disconnect();
+    }
+    setTimeout(() => {
+    window.location.reload();
+    }, 1);
+  };
 
-    /* 💵 This hook will get the price of ETH from 🦄 Uniswap: */
-    const price = useExchangeEthPrice(targetNetwork, mainnetProvider);
+  /* 💵 This hook will get the price of ETH from 🦄 Uniswap: */
+  const price = useExchangeEthPrice(targetNetwork, mainnetProvider);
 
-    /* 🔥 This hook will get the price of Gas from ⛽️ EtherGasStation */
-    const gasPrice = useGasPrice(targetNetwork, "fast");
-    // Use your injected provider from 🦊 Metamask or if you don't have it then instantly generate a 🔥 burner wallet.
-    const userProviderAndSigner = useUserProviderAndSigner(injectedProvider, localProvider);
-    const userSigner = userProviderAndSigner.signer;
+  /* 🔥 This hook will get the price of Gas from ⛽️ EtherGasStation */
+  const gasPrice = useGasPrice(targetNetwork, "fast");
+  // Use your injected provider from 🦊 Metamask or if you don't have it then instantly generate a 🔥 burner wallet.
+  const userProviderAndSigner = useUserProviderAndSigner(injectedProvider, localProvider);
+  const userSigner = userProviderAndSigner.signer;
 
-    useEffect(() => {
-        async function getAddress() {
-        if (userSigner) {
-            const newAddress = await userSigner.getAddress();
-            setAddress(newAddress);
-        }
-        }
-        getAddress();
-    }, [userSigner]);
+  useEffect(() => {
+      async function getAddress() {
+      if (userSigner) {
+          const newAddress = await userSigner.getAddress();
+          setAddress(newAddress);
+      }
+      }
+      getAddress();
+  }, [userSigner]);
 
-    // You can warn the user if you would like them to be on a specific network
-    const localChainId = localProvider && localProvider._network && localProvider._network.chainId;
-    const selectedChainId =
-        userSigner && userSigner.provider && userSigner.provider._network && userSigner.provider._network.chainId;
+  // You can warn the user if you would like them to be on a specific network
+  const localChainId = localProvider && localProvider._network && localProvider._network.chainId;
+  const selectedChainId =
+      userSigner && userSigner.provider && userSigner.provider._network && userSigner.provider._network.chainId;
 
-    // For more hooks, check out 🔗eth-hooks at: https://www.npmjs.com/package/eth-hooks
+  // The transactor wraps transactions and provides notificiations
+  const tx = Transactor(userSigner, gasPrice);
 
-    // The transactor wraps transactions and provides notificiations
-    const tx = Transactor(userSigner, gasPrice);
+  // Faucet Tx can be used to send funds from the faucet
+  const faucetTx = Transactor(localProvider, gasPrice);
 
-    // Faucet Tx can be used to send funds from the faucet
-    const faucetTx = Transactor(localProvider, gasPrice);
+  // 🏗 scaffold-eth is full of handy hooks like this one to get your balance:
+  const yourLocalBalance = useBalance(localProvider, address);
 
-    // 🏗 scaffold-eth is full of handy hooks like this one to get your balance:
-    const yourLocalBalance = useBalance(localProvider, address);
+  // Just plug in different 🛰 providers to get your balance on different chains:
+  const yourMainnetBalance = useBalance(mainnetProvider, address);
 
-    // Just plug in different 🛰 providers to get your balance on different chains:
-    const yourMainnetBalance = useBalance(mainnetProvider, address);
+  const contractConfig = useContractConfig();
 
-    const contractConfig = useContractConfig();
+  // Load in your local 📝 contract and read a value from it:
+  const readContracts = useContractLoader(localProvider, contractConfig);
 
-    // Load in your local 📝 contract and read a value from it:
-    const readContracts = useContractLoader(localProvider, contractConfig);
+  // If you want to make 🔐 write transactions to your contracts, use the userSigner:
+  const writeContracts = useContractLoader(userSigner, contractConfig, localChainId);
 
-    // If you want to make 🔐 write transactions to your contracts, use the userSigner:
-    const writeContracts = useContractLoader(userSigner, contractConfig, localChainId);
+  // EXTERNAL CONTRACT EXAMPLE: If you want to bring in the mainnet DAI contract it would look like:
+  const mainnetContracts = useContractLoader(mainnetProvider, contractConfig);
 
-    // EXTERNAL CONTRACT EXAMPLE:
-    //
-    // If you want to bring in the mainnet DAI contract it would look like:
-    const mainnetContracts = useContractLoader(mainnetProvider, contractConfig);
+  // If you want to call a function on a new block
+  useOnBlock(mainnetProvider, () => {
+      console.log(`⛓ A new mainnet block is here: ${mainnetProvider._lastBlockNumber}`);
+  });
 
-    // If you want to call a function on a new block
-    useOnBlock(mainnetProvider, () => {
-        console.log(`⛓ A new mainnet block is here: ${mainnetProvider._lastBlockNumber}`);
-    });
+  // keep track of a variable from the contract in the local React state:
+  const balance = useContractReader(readContracts, "RavingGoblins", "balanceOf", [address]);
+  console.log("🤗 balance:", balance);
 
-    // Then read your DAI balance like:
-    const myMainnetDAIBalance = useContractReader(mainnetContracts, "DAI", "balanceOf", [
-        "0x34aA3F359A9D614239015126635CE7732c18fDF3",
-    ]);
+  // 📟 Listen for broadcast events
+  const transferEvents = useEventListener(readContracts, "RavingGoblins", "Transfer", localProvider, 1);
+  console.log("📟 Transfer events:", transferEvents);
 
-    // keep track of a variable from the contract in the local React state:
-    const balance = useContractReader(readContracts, "YourCollectible", "balanceOf", [address]);
-    console.log("🤗 balance:", balance);
+  // 🧠 This effect will update yourRavingGoblins by polling when your balance changes
+  const yourBalance = balance && balance.toNumber && balance.toNumber();
+  const [yourRavingGoblins, setRavingGoblins] = useState();
 
-    // 📟 Listen for broadcast events
-    const transferEvents = useEventListener(readContracts, "YourCollectible", "Transfer", localProvider, 1);
-    console.log("📟 Transfer events:", transferEvents);
-
-    //
-    // 🧠 This effect will update yourCollectibles by polling when your balance changes
-    //
-    const yourBalance = balance && balance.toNumber && balance.toNumber();
-    const [yourCollectibles, setYourCollectibles] = useState();
-
-    useEffect(() => {
-        const updateYourCollectibles = async () => {
-        const collectibleUpdate = [];
-        for (let tokenIndex = 0; tokenIndex < balance; tokenIndex++) {
-            try {
+  useEffect(() => {
+      const updateRavingGoblins = async () => {
+      const collectibleUpdate = [];
+      for (let tokenIndex = 0; tokenIndex < balance; tokenIndex++) {
+          try {
             console.log("Getting token index", tokenIndex);
-            const tokenId = await readContracts.YourCollectible.tokenOfOwnerByIndex(address, tokenIndex);
+            const tokenId = await readContracts.RavingGoblins.tokenOfOwnerByIndex(address, tokenIndex);
             console.log("tokenId", tokenId);
-            const tokenURI = await readContracts.YourCollectible.tokenURI(tokenId);
+            const tokenURI = await readContracts.RavingGoblins.tokenURI(tokenId);
             console.log("tokenURI", tokenURI);
 
             const ipfsHash = tokenURI.replace("https://ipfs.io/ipfs/", "");
@@ -314,128 +298,83 @@ function MintSection(props) {
             } catch (e) {
                 console.log(e);
             }
-            } catch (e) {
-            console.log(e);
-            }
-        }
-        setYourCollectibles(collectibleUpdate);
-        };
-        updateYourCollectibles();
-    }, [address, yourBalance]);
+          } catch (e) {
+          console.log(e);
+          }
+      }
+      setRavingGoblins(collectibleUpdate);
+      };
+      updateRavingGoblins();
+  }, [address, yourBalance]);
 
-    /*
-    const addressFromENS = useResolveName(mainnetProvider, "austingriffith.eth");
-    console.log("🏷 Resolved austingriffith.eth as:",addressFromENS)
-    */
+  // 🧫 DEBUG 👨🏻‍🔬
+  useEffect(() => {
+      if (
+      DEBUG &&
+      mainnetProvider &&
+      address &&
+      selectedChainId &&
+      yourLocalBalance &&
+      yourMainnetBalance &&
+      readContracts &&
+      writeContracts &&
+      mainnetContracts
+      ) {
+      console.log("_____________________________________ 🏗 scaffold-eth _____________________________________");
+      console.log("🌎 mainnetProvider", mainnetProvider);
+      console.log("🏠 localChainId", localChainId);
+      console.log("👩‍💼 selected address:", address);
+      console.log("🕵🏻‍♂️ selectedChainId:", selectedChainId);
+      console.log("💵 yourLocalBalance", yourLocalBalance ? ethers.utils.formatEther(yourLocalBalance) : "...");
+      console.log("💵 yourMainnetBalance", yourMainnetBalance ? ethers.utils.formatEther(yourMainnetBalance) : "...");
+      console.log("📝 readContracts", readContracts);
+       console.log("🔐 writeContracts", writeContracts);
+      }
+  }, [
+      mainnetProvider,
+      address,
+      selectedChainId,
+      yourLocalBalance,
+      yourMainnetBalance,
+      readContracts,
+      writeContracts,
+      mainnetContracts,
+  ]);
 
-    //
-    // 🧫 DEBUG 👨🏻‍🔬
-    //
-    useEffect(() => {
-        if (
-        DEBUG &&
-        mainnetProvider &&
-        address &&
-        selectedChainId &&
-        yourLocalBalance &&
-        yourMainnetBalance &&
-        readContracts &&
-        writeContracts &&
-        mainnetContracts
-        ) {
-        console.log("_____________________________________ 🏗 scaffold-eth _____________________________________");
-        console.log("🌎 mainnetProvider", mainnetProvider);
-        console.log("🏠 localChainId", localChainId);
-        console.log("👩‍💼 selected address:", address);
-        console.log("🕵🏻‍♂️ selectedChainId:", selectedChainId);
-        console.log("💵 yourLocalBalance", yourLocalBalance ? ethers.utils.formatEther(yourLocalBalance) : "...");
-        console.log("💵 yourMainnetBalance", yourMainnetBalance ? ethers.utils.formatEther(yourMainnetBalance) : "...");
-        console.log("📝 readContracts", readContracts);
-        console.log("🌍 DAI contract on mainnet:", mainnetContracts);
-        console.log("💵 yourMainnetDAIBalance", myMainnetDAIBalance);
-        console.log("🔐 writeContracts", writeContracts);
-        }
-    }, [
-        mainnetProvider,
-        address,
-        selectedChainId,
-        yourLocalBalance,
-        yourMainnetBalance,
-        readContracts,
-        writeContracts,
-        mainnetContracts,
-    ]);
-
-
-// Mint NFT 
-
-async function MintNFT() {
-
-  SetMinting(true)
-   
-  try {
-
-    const web3Modal = new Web3Modal()
-    const connection = await web3Modal.connect()
-    const provider = new ethers.providers.Web3Provider(connection)    
-    const signer = provider.getSigner()
-
-    let contract = new ethers.Contract(nftaddress, NFT.abi, signer)
-
-    let listingPrice = await contract.getPrice()
-
-    listingPrice = listingPrice.toString()
-
-    transaction = await contract._claimNft({ value: listingPrice })
-
-    SetMinting(false)
-  
-}catch(error) {
-
-    SetMinting(false)
-    console.log(error)
-   
-            
-
-}
-
-}
-
-
-    // making sure wallet's network matches with website's network
-    let networkDisplay = "";
-    if (NETWORKCHECK && localChainId && selectedChainId && localChainId !== selectedChainId) {
-        const networkSelected = NETWORK(selectedChainId);
-        const networkLocal = NETWORK(localChainId);
-        if (selectedChainId === 1337 && localChainId === 31337) {
-        networkDisplay = (
-            <div style={{ zIndex: 2, position: "absolute", right: 0, top: 60, padding: 16 }}>
-            <Alert
-                message="⚠️ Wrong Network ID"
-                description={
-                <div>
-                    You have <b>chain id 1337</b> for localhost and you need to change it to <b>31337</b> to work with
-                    HardHat.
-                    <div>(MetaMask -&gt; Settings -&gt; Networks -&gt; Chain ID -&gt; 31337)</div>
-                </div>
-                }
-                type="error"
-                closable={false}
-            />
-            </div>
-        );
-        } else {
-        networkDisplay = (
-            <div style={{ zIndex: 2, position: "absolute", right: 0, top: 60, padding: 16 }}>
-            <Alert
-                message="⚠️ Wrong Network"
-                description={
-                <div>
-                    You have <b>{networkSelected && networkSelected.name}</b> selected and you need to be on{" "}
-                    <Button
-                    onClick={async () => {
-                        const ethereum = window.ethereum;
-                        const data = [
+  // Making sure wallet's network matches with website's network
+  let networkDisplay = "";
+  if (NETWORKCHECK && localChainId && selectedChainId && localChainId !== selectedChainId) {
+      const networkSelected = NETWORK(selectedChainId);
+      const networkLocal = NETWORK(localChainId);
+      if (selectedChainId === 1337 && localChainId === 31337) {
+      networkDisplay = (
+          <div style={{ zIndex: 2, position: "absolute", right: 0, top: 60, padding: 16 }}>
+          <Alert
+              message="⚠️ Wrong Network ID"
+              description={
+              <div>
+                  You have <b>chain id 1337</b> for localhost and you need to change it to <b>31337</b> to work with
+                  HardHat.
+                  <div>(MetaMask -&gt; Settings -&gt; Networks -&gt; Chain ID -&gt; 31337)</div>
+              </div>
+              }
+              type="error"
+              closable={false}
+          />
+          </div>
+      );
+      } else {
+      networkDisplay = (
+          <div style={{ zIndex: 2, position: "absolute", right: 0, top: 60, padding: 16 }}>
+          <Alert
+              message="⚠️ Wrong Network"
+              description={
+              <div>
+                  You have <b>{networkSelected && networkSelected.name}</b> selected and you need to be on{" "}
+                  <Button
+                  onClick={async () => {
+                      const ethereum = window.ethereum;
+                      const data = [
                         {
                             chainId: "0x" + targetNetwork.chainId.toString(16),
                             chainName: targetNetwork.name,
@@ -443,17 +382,17 @@ async function MintNFT() {
                             rpcUrls: [targetNetwork.rpcUrl],
                             blockExplorerUrls: [targetNetwork.blockExplorer],
                         },
-                        ];
-                        console.log("data", data);
+                      ];
+                      console.log("data", data);
 
-                        let switchTx;
-                        // https://docs.metamask.io/guide/rpc-api.html#other-rpc-methods
-                        try {
-                        switchTx = await ethereum.request({
-                            method: "wallet_switchEthereumChain",
-                            params: [{ chainId: data[0].chainId }],
-                        });
-                        } catch (switchError) {
+                      let switchTx;
+                      // https://docs.metamask.io/guide/rpc-api.html#other-rpc-methods
+                      try {
+                      switchTx = await ethereum.request({
+                          method: "wallet_switchEthereumChain",
+                          params: [{ chainId: data[0].chainId }],
+                      });
+                      } catch (switchError) {
                         // not checking specific error code, because maybe we're not using MetaMask
                         try {
                             switchTx = await ethereum.request({
@@ -463,136 +402,133 @@ async function MintNFT() {
                         } catch (addError) {
                             // handle "add" error
                         }
-                        }
-
-                        if (switchTx) {
+                      }
+                      if (switchTx) {
                         console.log(switchTx);
-                        }
-                    }}
-                    >
-                    <b>{networkLocal && networkLocal.name}</b>
-                    </Button>
-                </div>
-                }
-                type="error"
-                closable={false}
-            />
-            </div>
-        );
-        }
-    } else {
-        // displays the name of the etwork
-        networkDisplay = (
+                      }
+                  }}
+                  >
+                  <b>{networkLocal && networkLocal.name}</b>
+                  </Button>
+              </div>
+              }
+              type="error"
+              closable={false}
+          />
+          </div>
+      );
+      }
+  } else {
+      // displays the name of the etwork
+      networkDisplay = (
         <div style={{ zIndex: -1, position: "absolute", right: 154, top: 28, padding: 16, color: targetNetwork.color }}>
             {targetNetwork.name}
         </div>
-        );
-    }
+      );
+  }
 
+  const loadWeb3Modal = useCallback(async () => {
+      const provider = await web3Modal.connect();
+      setInjectedProvider(new ethers.providers.Web3Provider(provider));
 
+      provider.on("chainChanged", chainId => {
+      console.log(`chain changed to ${chainId}! updating providers`);
+      setInjectedProvider(new ethers.providers.Web3Provider(provider));
+      });
 
-    const loadWeb3Modal = useCallback(async () => {
-        const provider = await web3Modal.connect();
-        setInjectedProvider(new ethers.providers.Web3Provider(provider));
+      provider.on("accountsChanged", () => {
+      console.log(`account changed!`);
+      setInjectedProvider(new ethers.providers.Web3Provider(provider));
+      });
 
-        provider.on("chainChanged", chainId => {
-        console.log(`chain changed to ${chainId}! updating providers`);
-        setInjectedProvider(new ethers.providers.Web3Provider(provider));
-        });
+      // Subscribe to session disconnection
+      provider.on("disconnect", (code, reason) => {
+      console.log(code, reason);
+      logoutOfWeb3Modal();
+      });
+  }, [setInjectedProvider]);
 
-        provider.on("accountsChanged", () => {
-        console.log(`account changed!`);
-        setInjectedProvider(new ethers.providers.Web3Provider(provider));
-        });
+  useEffect(() => {
+      if (web3Modal.cachedProvider) {
+      loadWeb3Modal();
+      }
+  }, [loadWeb3Modal]);
 
-        // Subscribe to session disconnection
-        provider.on("disconnect", (code, reason) => {
-        console.log(code, reason);
-        logoutOfWeb3Modal();
-        });
-    }, [setInjectedProvider]);
+  const [route, setRoute] = useState();
+  useEffect(() => {
+      setRoute(window.location.pathname);
+  }, [setRoute]);
 
-    useEffect(() => {
-        if (web3Modal.cachedProvider) {
-        loadWeb3Modal();
-        }
-    }, [loadWeb3Modal]);
+  let faucetHint = "";
+  const faucetAvailable = localProvider && localProvider.connection && targetNetwork.name.indexOf("local") !== -1;
 
-    const [route, setRoute] = useState();
-    useEffect(() => {
-        setRoute(window.location.pathname);
-    }, [setRoute]);
+  const [faucetClicked, setFaucetClicked] = useState(false);
+  if (
+      !faucetClicked &&
+      localProvider &&
+      localProvider._network &&
+      localProvider._network.chainId === 31337 &&
+      yourLocalBalance &&
+      ethers.utils.formatEther(yourLocalBalance) <= 0
+  ) {
+      faucetHint = (
+      <div style={{ padding: 16 }}>
+          <Button
+          type="primary"
+          onClick={() => {
+              faucetTx({
+              to: address,
+              value: ethers.utils.parseEther("0.01"),
+              });
+              setFaucetClicked(true);
+          }}
+          >
+          💰 Grab funds from the faucet ⛽️
+          </Button>
+      </div>
+      );
+  }
 
-    let faucetHint = "";
-    const faucetAvailable = localProvider && localProvider.connection && targetNetwork.name.indexOf("local") !== -1;
+  const [yourJSON, setYourJSON] = useState(STARTING_JSON);
+  const [sending, setSending] = useState();
+  const [ipfsHash, setIpfsHash] = useState();
+  const [ipfsDownHash, setIpfsDownHash] = useState();
 
-    const [faucetClicked, setFaucetClicked] = useState(false);
-    if (
-        !faucetClicked &&
-        localProvider &&
-        localProvider._network &&
-        localProvider._network.chainId === 31337 &&
-        yourLocalBalance &&
-        ethers.utils.formatEther(yourLocalBalance) <= 0
-    ) {
-        faucetHint = (
-        <div style={{ padding: 16 }}>
-            <Button
-            type="primary"
-            onClick={() => {
-                faucetTx({
-                to: address,
-                value: ethers.utils.parseEther("0.01"),
-                });
-                setFaucetClicked(true);
-            }}
-            >
-            💰 Grab funds from the faucet ⛽️
-            </Button>
-        </div>
-        );
-    }
+  const [downloading, setDownloading] = useState();
+  const [ipfsContent, setIpfsContent] = useState();
 
-    const [yourJSON, setYourJSON] = useState(STARTING_JSON);
-    const [sending, setSending] = useState();
-    const [ipfsHash, setIpfsHash] = useState();
-    const [ipfsDownHash, setIpfsDownHash] = useState();
+  const [transferToAddresses, setTransferToAddresses] = useState({});
 
-    const [downloading, setDownloading] = useState();
-    const [ipfsContent, setIpfsContent] = useState();
+  const [loadedAssets, setLoadedAssets] = useState();
+  const [onSaleAssets, setOnSaleAssets] = useState([]);
+  useEffect(() => {
+      const updateRavingGoblins = async () => {
+      const assetUpdate = [];
+      const assetOnSale = [];
+      for (const a in assets) {
+          try {
+          const forSale = await readContracts.RavingGoblins.forSale(ethers.utils.id(a));
+          let owner;
+          if (!forSale) {
+              const tokenId = await readContracts.RavingGoblins.uriToTokenId(ethers.utils.id(a));
+              owner = await readContracts.RavingGoblins.ownerOf(tokenId);
+          } else {
+              assetOnSale.push({ id: a, ...assets[a] });
+          }
+          assetUpdate.push({ id: a, ...assets[a], forSale, owner });
+          } catch (e) {
+          console.log(e);
+          }
+      }
+      setLoadedAssets(assetUpdate);
+      setOnSaleAssets(assetOnSale);
+      };
+      if (readContracts && readContracts.RavingGoblins) updateRavingGoblins();
+  }, [assets, readContracts, transferEvents]);
 
-    const [transferToAddresses, setTransferToAddresses] = useState({});
-
-    const [loadedAssets, setLoadedAssets] = useState();
-    const [onSaleAssets, setOnSaleAssets] = useState([]);
-    useEffect(() => {
-        const updateYourCollectibles = async () => {
-        const assetUpdate = [];
-        const assetOnSale = [];
-        for (const a in assets) {
-            try {
-            const forSale = await readContracts.YourCollectible.forSale(ethers.utils.id(a));
-            let owner;
-            if (!forSale) {
-                const tokenId = await readContracts.YourCollectible.uriToTokenId(ethers.utils.id(a));
-                owner = await readContracts.YourCollectible.ownerOf(tokenId);
-            } else {
-                assetOnSale.push({ id: a, ...assets[a] });
-            }
-            assetUpdate.push({ id: a, ...assets[a], forSale, owner });
-            } catch (e) {
-            console.log(e);
-            }
-        }
-        setLoadedAssets(assetUpdate);
-        setOnSaleAssets(assetOnSale);
-        };
-        if (readContracts && readContracts.YourCollectible) updateYourCollectibles();
-    }, [assets, readContracts, transferEvents]);
-
-    const getRandomInt = max => {
-        return Math.floor(Math.random() * max);
-    };
+  const getRandomInt = max => {
+      return Math.floor(Math.random() * max);
+  };
 
   const subgraphUri = "http://localhost:8000/subgraphs/name/scaffold-eth/your-contract";
 
@@ -622,45 +558,26 @@ async function MintNFT() {
           <div className="gachapon" />
         </Col>
         <Col span={3}>
-
-    
           <button className="pushable" style={{ marginTop: '40em', marginBottom: '2em' }}
               onClick={() => {
                 const rnd = getRandomInt(onSaleAssets.length);
                 console.log("== Random Mint ==>", rnd, onSaleAssets.length);
                 if (onSaleAssets.length > 0) {
-                  tx(
-                    writeContracts.YourCollectible.mintItem(onSaleAssets[rnd].id, {
-                      value: ethers.utils.parseEther("0.03"), // the price cannot come from the frontend, risk of manupulation 
-                      gasPrice,
-                    }),
-                  );
+                  tx(writeContracts.RavingGoblins.mintItem(onSaleAssets[rnd].id, { gasPrice }));
                 }
               }}
-          disabled={minting?true:false}
-              
+              disabled={minting?true:false}
           >
-
-       
-            <span className="front" style={{ paddingLeft: '2.9em', paddingRight: '2.9em' }}>
+            <span className="front" style= {{ paddingLeft: '2.9em', paddingRight: '2.9em' }}>
                 MINT 
             </span>
-           
-
           </button>
-
-
-          <button className="pushable"
-                  onClick={loadWeb3Modal}
-          >
+          <button className="pushable" onClick={loadWeb3Modal}> 
             <span className="shadow"></span>
-                <span className="front">
-                    CONNECT
-                </span>
-          </button> <br />
-
+                <span className="front">CONNECT</span>
+          </button> 
+          <br />
           <div style={{fontSize:'14px', color:'white', textAlign:'center', justifyContent: 'center', height:'20px'}}> {minting&&<i>We are minting your Raving Goblin, please wait ...</i>}</div>
-
         </Col>
       </Row>
     </div>

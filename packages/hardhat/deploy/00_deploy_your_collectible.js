@@ -63,7 +63,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   });
   */
 };
-module.exports.tags = ["YourCollectible"];
+module.exports.tags = ["RavingGoblins"];
 
 /*
 Tenderly verification

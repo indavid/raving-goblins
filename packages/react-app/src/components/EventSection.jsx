@@ -35,7 +35,7 @@ class CommunitySection extends React.Component {
                                 </Paragraph>
                                 <Paragraph style={{ color: '#EBFEFF' }}>
                                     Squid Game Date: To Be Announced After the Minting.
-                                    Type of Game to Be Played in the Squid Game will also be Annouced in the Discord
+                                    Type of Game to Be Played in the Squid Game will also be Annouced in the Discord.
                                 </Paragraph>
                                 <Title level={1} style={{ color: '#0CEEFF', textAlign: 'center' }}>
                                     Top 3 Prizes for Winners: 
