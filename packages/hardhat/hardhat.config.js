@@ -25,7 +25,7 @@ const { isAddress, getAddress, formatUnits, parseUnits } = utils;
 //
 // Select the network you want to deploy to here:
 //
-const defaultNetwork = "rinkeby";
+const defaultNetwork = "mainnet";
 
 const mainnetGwei = 21;
 
@@ -79,15 +79,21 @@ module.exports = {
     rinkeby: {
       url: "https://rinkeby.infura.io/v3/f797dba5b6d7414b9f348f5477cd65d2", // <---- YOUR INFURA ID! (or it won't work)
       accounts: [privateKey],
+      gas: 2100000,
+      gasPrice: 8000000000
     },
     mainnet: {
       url: "https://mainnet.infura.io/v3/f797dba5b6d7414b9f348f5477cd65d2", // <---- YOUR INFURA ID! (or it won't work)
       gasPrice: mainnetGwei*1000000000,
       accounts: [privateKey],
+      gas: 2100000,
+      gasPrice: 8000000000
     },
     ropsten: {
       url: "https://ropsten.infura.io/v3/f797dba5b6d7414b9f348f5477cd65d2", // <---- YOUR INFURA ID! (or it won't work)
       accounts: [privateKey],
+      gas: 2100000,
+      gasPrice: 8000000000
     },
   },
   solidity: {
