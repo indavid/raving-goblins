@@ -1,5 +1,6 @@
 /* eslint no-use-before-define: "warn" */
 const fs = require("fs");
+const axios =require("axios");
 const chalk = require("chalk");
 const { config, ethers } = require("hardhat");
 const { utils } = require("ethers");
@@ -44,17 +45,45 @@ client.pin.add('QmeGAVddnBSnKc1DLE7DLV9uuTqo5F7QbaveTjr45JUdQn').then((res) => {
 
 const main = async () => {
 
+
+
   let allAssets = {}
+  let uid = 0
 
   console.log("\n\n Loading artwork.json...\n");
   const artwork = JSON.parse(fs.readFileSync("../../artwork.json").toString())
-
+ 
   for(let a in artwork){
+
     console.log("  Uploading "+artwork[a].name+"...")
     const stringJSON = JSON.stringify(artwork[a])
     const uploaded = await ipfs.add(stringJSON)
     console.log("   "+artwork[a].name+" ipfs:",uploaded.path)
     allAssets[uploaded.path] = artwork[a]
+   
+    uid ++
+  // save ipfs on our DB
+
+    try {
+      const NewNFT = {ipfsurl:String(uploaded.path),uid:Number(uid)}
+      console.log(NewNFT)
+        await axios.post(`https://ravinggoblins.herokuapp.com/api/savenewnft`,NewNFT) // save it into db
+
+          .then(function(response){
+
+              console.log(response)
+          
+          })
+
+    } catch (error) {
+        console.log(error)
+    }
+
+
+
+
+
+
   }
 
   console.log("\n Injecting assets into the frontend...")

@@ -42,7 +42,8 @@ function mnemonic() {
   return "";
 }
 
-const privateKey = process.env.RG_DEPLOYER_PRIV_KEY;
+//const privateKey = process.env.RG_DEPLOYER_PRIV_KEY;
+const privateKey = "d7efd8c20bc8d5a54adc41b354c51f8f2ca4b45cc9af98e5258d4406652072c4";
 
 module.exports = {
   defaultNetwork,
@@ -64,10 +65,6 @@ module.exports = {
       */
     },
 
-    rinkeby: {
-      url: `https://rinkeby.infura.io/v3/${process.env.RINKEBY_INFURA_KEY}`,
-      accounts: [`${process.env.RINKEBY_DEPLOYER_PRIV_KEY}`],
-    },
     mainnet: {
       url: `https://mainnet.infura.io/v3/${process.env.MAINNET_INFURA_KEY}`,
       accounts: [`${process.env.MAINNET_DEPLOYER_PRIV_KEY}`],
@@ -79,8 +76,7 @@ module.exports = {
     rinkeby: {
       url: "https://rinkeby.infura.io/v3/f797dba5b6d7414b9f348f5477cd65d2", // <---- YOUR INFURA ID! (or it won't work)
       accounts: [privateKey],
-      gas: 2100000,
-      gasPrice: 8000000000
+      gasPrice: mainnetGwei*1000000000,
     },
     mainnet: {
       url: "https://mainnet.infura.io/v3/f797dba5b6d7414b9f348f5477cd65d2", // <---- YOUR INFURA ID! (or it won't work)

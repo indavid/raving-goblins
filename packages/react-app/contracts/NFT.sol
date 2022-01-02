@@ -7,122 +7,105 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/AccessControlEnumerable.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
-import "@openzeppelin/contracts/security/Pausable.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
-import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+
+
 import "hardhat/console.sol";
 
 
-contract NFT is ERC721Enumerable, ERC721URIStorage, AccessControlEnumerable, Pausable, Ownable, ERC721Burnable, ReentrancyGuard {
+contract NFT is ERC721Enumerable, ERC721URIStorage, AccessControlEnumerable,ReentrancyGuard  {
 
-    using Counters for Counters.Counter;
-    Counters.Counter private _tokenIds;
-
-    uint256 price = 0.03 ether; // all NFTs default price show be implemented in the smart contract not coming from frontend
-
-    address public admin ;
-
-    string  baseUrl ="";
-
-  constructor (string _baseUrl) ERC721("Raving Goblins ERC-721 token", "RGT") {
+   using Counters for Counters.Counter;
+  Counters.Counter private _tokenIds;
+  address payable admin;
+  uint256 internal _possibleToMint = 2000;
+  uint256 public price = 0.03 ether; 
  
-    admin = msg.sender;
+  
+  constructor () ERC721("Raving Goblins ERC721 Token", "RGT") {
 
-    baseUrl=_baseUrl;
-   
-  }
-
-  function getPrice()public view returns(uint256){
-
-  return price;
+    admin=payable(msg.sender);
 
   }
 
-  function changePrice(uint256 _newPrice) onlyOwner public returns (bool)  {
+  function mintItem(string memory nftURI)
+      public
+      payable
+      nonReentrant 
+      returns (uint256) {
 
+      require(price > 0, "Price must be at least 1 wei");
+      require(msg.value == price,"unsufficient funds");
+      require(_possibleToMint>0,"First drop is over");
+
+      _tokenIds.increment();
+
+      uint256 id = _tokenIds.current();
+      _mint(msg.sender, id);
+      _setTokenURI(id, nftURI);
+
+      admin.transfer(msg.value);
+
+      _possibleToMint--;
+
+      return id;
+  }
+
+  function giveAway(address _team, string memory nftURI)  public returns (uint256) {
+
+    require(msg.sender==admin,"only the Admin can give away some tokens");
+
+    _tokenIds.increment();
+    uint256 id = _tokenIds.current();
+    _mint(_team, id);
+    _setTokenURI(id, nftURI);
+ 
+    return id;
+  }
+
+  function changePrice(uint256 _newPrice)  public returns (bool) {
+    require(msg.sender==admin,"only the Admin can change the price");
     price=_newPrice;
     return true;
-
   }
 
- function changeUrl(string memory _newUrl)  onlyOwner public returns (bool) {
+  function getPrice() public view returns (uint256) {
+    return price;
+  }
 
-    baseUrl=_newUrl;
+  function changePossibleToMint(uint256 _newValue)  public returns (bool) {
+    require(msg.sender==admin,"only the Admin can change this number");
+    _possibleToMint=_newValue;
     return true;
+  }  
 
+  function withEth(address payable _addr)  public returns (bool)  {
+
+    require(msg.sender==admin,"only the Admin can withdraw");
+    _addr.transfer(address(this).balance);
+    return true;
   }
-
-
-  function mintItem(uint256 _randomNumber) public payable nonReentrant {
-
-    require(msg.value >= price, "Unsufficient balance");
-
-    _tokenIds.increment();
-    uint256 newItemId = _tokenIds.current();
-    _mint(msg.sender, newItemId);
-    
-    string memory _URI = string (abi.encodePacked(baseUrl,Strings.toString(_randomNumber))); // may add randomness here, get a random number from frontend and pass it to this function
-
-    _setTokenURI(newItemId, _URI);
-
-    payable(admin).transfer(price); // send that 0.03 Eth to the contract owner
-
-    
-  }
-
-  function giveAway(address _team, uint256 _randomNumber) onlyOwner public view returns (bool){
-
-    _tokenIds.increment();
-    uint256 newItemId = _tokenIds.current();
-    _mint(_team, newItemId);
-    string memory _URI = string (abi.encodePacked(baseUrl,Strings.toString(_randomNumber))); // may add randomness here, get a random number from frontend and pass it to this function
-
-    _setTokenURI(newItemId, _URI);
-   
-    return true
-  }
-
 
   function supportsInterface(bytes4 interfaceId) public view virtual override(AccessControlEnumerable, ERC721, ERC721Enumerable) returns (bool) {
    
     return super.supportsInterface(interfaceId);
-
   }
-
 
   function tokenURI(uint256 tokenId) public view virtual override(ERC721, ERC721URIStorage) returns (string memory) {
   
     return ERC721URIStorage.tokenURI(tokenId);
-
   }
-
 
   function _beforeTokenTransfer(address from, address to, uint256 tokenId) internal virtual override(ERC721, ERC721Enumerable) {
    
     super._beforeTokenTransfer(from, to, tokenId);
-
   }
 
-
-  function _burn(uint256 tokenId) internal virtual override(ERC721, ERC721URIStorage) {
-     
+    function _burn(uint256 tokenId) internal virtual override(ERC721, ERC721URIStorage) {
+   
     return ERC721URIStorage._burn(tokenId);
-
   }
 
-
-  function pause() public onlyOwner{
-
-        _pause();
-  }
-
-
-  function unpause() public onlyOwner{
-
-        _unpause();
-  }
 
 
 }
