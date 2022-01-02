@@ -12,7 +12,7 @@ contract RavingGoblins is ERC721, Ownable {
   Counters.Counter private _tokenIds;
  
   uint256 internal _possibleToMint = 2000;
-  uint256 internal price = 0.03 ether; 
+  uint256 public price = 0.03 ether; 
 
   constructor(/*bytes32[] memory assetsForSale*/) public ERC721("Raving Goblins ERC721 Token", "RGT") {
     _setBaseURI("https://ipfs.io/ipfs/");
@@ -35,7 +35,7 @@ contract RavingGoblins is ERC721, Ownable {
 
       // Make sure they are only minting something that is marked "forsale"
       //require(forSale[uriHash],"NOT FOR SALE");
-      require(msg.value >= price);
+      require(msg.value > price,"unsufficient funds");
       require(_possibleToMint>0,"First drop is over");
 
       //forSale[uriHash]=false;
@@ -71,6 +71,10 @@ contract RavingGoblins is ERC721, Ownable {
   function changePrice(uint256 _newPrice) onlyOwner public returns (bool) {
     price=_newPrice;
     return true;
+  }
+
+  function getPrice() public view returns (uint256) {
+    return price;
   }
 
   function changePossibleToMint(uint256 _newValue) onlyOwner public returns (bool) {
