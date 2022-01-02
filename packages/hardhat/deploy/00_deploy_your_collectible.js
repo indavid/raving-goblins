@@ -23,8 +23,9 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   await deploy("RavingGoblins", {
     // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
     from: deployer,
-    args: [ bytes32Array ],
+    //args: [ bytes32Array ],
     log: true,
+    //gasPrice: 54000000000,
   });
 
   /*

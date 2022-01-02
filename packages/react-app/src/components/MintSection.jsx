@@ -1,9 +1,10 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Alert, Button, Row, Card, Col, Input, List, Menu, Anchor } from 'antd';
-
+import { SmileOutlined } from '@ant-design/icons';
 import "./index.css";
 import background3 from "../static/bgs/bg3.gif";
-
+import axios from "axios";
+import { notification } from "antd";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import WalletLink from "walletlink";
 import "antd/dist/antd.css";
@@ -501,8 +502,11 @@ function MintSection(props) {
 
   const [loadedAssets, setLoadedAssets] = useState();
   const [onSaleAssets, setOnSaleAssets] = useState([]);
+  const[updateMe, setUpdate]=useState();
+
+
   useEffect(() => {
-      const updateRavingGoblins = async () => {
+      /*const updateRavingGoblins = async () => {
       const assetUpdate = [];
       const assetOnSale = [];
       for (const a in assets) {
@@ -523,12 +527,163 @@ function MintSection(props) {
       setLoadedAssets(assetUpdate);
       setOnSaleAssets(assetOnSale);
       };
-      if (readContracts && readContracts.RavingGoblins) updateRavingGoblins();
-  }, [assets, readContracts, transferEvents]);
+      if (readContracts && readContracts.RavingGoblins) updateRavingGoblins();*/
+
+     const cleanMe = GetForSale()
+     return cleanMe
+
+
+
+
+  }, [updateMe]);
+
+  const GetForSale =async()=>{
+          
+    try {
+     
+        await axios.get(`https://ravinggoblins.herokuapp.com/api/getallnfts`) // save it into db
+
+          .then(function(response){
+
+            setOnSaleAssets(response?.data)
+
+            console.log("Dataaaaaaaaaaaaaaaaaaaaaaaaaa===================",response?.data)
+          
+          })
+
+    } catch (error) {
+        console.log(error)
+    }
+
+  }
+
+  const UpdateForSale =async(uid)=>{
+          
+    try {
+        const changeME= {uid:Number(uid)}
+
+        console.log("UPDATEEEEEEEEEEEEEEEEEEEEEEEE=============", uid)
+
+        await axios.post(`https://ravinggoblins.herokuapp.com/api/changetobought`, changeME) // save it into db
+
+          .then(function(response){
+
+            setUpdate(response)
+
+            console.log("UPDATEEEEEEEEEEEEEEEEEEEEEEEE=============",response)
+          
+          })
+
+    } catch (error) {
+        console.log(error)
+    }
+
+  }
 
   const getRandomInt = max => {
       return Math.floor(Math.random() * max);
   };
+
+
+  const ClaimNft = async() => {
+
+      /* FIRST METHOD =========================== */
+      
+      try {
+
+            notification.info({
+              message: "The Minting process has begun",
+              placement: "topRight",
+              icon: <SmileOutlined style={{ color: 'white' }} />,
+            });
+
+            const web3Modal = new Web3Modal()
+            const connection = await web3Modal.connect()
+            const provider = new ethers.providers.Web3Provider(connection)    
+            const signer = provider.getSigner()
+            let contract = new ethers.Contract(nftaddress, NFT.abi, signer)
+
+            const rnd = getRandomInt(onSaleAssets?.length);
+
+            console.log("== Random Mint ==>", rnd, onSaleAssets?.length);
+
+            if (onSaleAssets.length > 0) {
+        
+            const url = `https://ipfs.io/ipfs/${onSaleAssets[rnd].ipfsurl}`
+
+            console.log("==============URL", url)
+
+            let Nftprice = await contract.getPrice()
+
+            Nftprice = Nftprice.toString()
+
+            console.log("Listing price================================",Nftprice)
+
+            const transaction = await contract.mintItem(url, {
+              value: Nftprice
+          
+            })
+
+            await transaction.wait().then(async() =>{
+
+              await UpdateForSale(onSaleAssets[rnd].uid)
+
+              notification.info({
+                message: "Minting completed",
+                placement: "bottomRight",
+              });
+
+            })
+
+
+            }
+
+        
+        
+      } catch (error) {
+
+        
+        notification.error({
+          message: `${error.message}`,
+          placement: "bottomRight",
+        });
+
+
+        
+      }
+  
+
+      /** SECOND METHOD 
+
+      const rnd = getRandomInt(onSaleAssets.length);
+
+      console.log("== Random Mint ==>", rnd, onSaleAssets.length);
+
+      let url = `https://ipfs.io/ipfs/${onSaleAssets[rnd].ipfsurl}`
+
+
+      if (onSaleAssets.length > 0) {
+
+        tx(writeContracts.RavingGoblins.getPrice().then(function(res){
+
+          console.log("Priceeeeeeeeeeeeeeeee=======================",res.toString())
+
+          tx(writeContracts.RavingGoblins.mintItem(url, {
+
+            value:res.toString(),
+             gasLimit: 5050000,
+            //gasPrice
+   
+            }));
+  
+  
+        }))
+      
+
+      }*/
+ 
+
+  }
 
   const subgraphUri = "http://localhost:8000/subgraphs/name/scaffold-eth/your-contract";
 
@@ -559,13 +714,9 @@ function MintSection(props) {
         </Col>
         <Col span={3}>
           <button className="pushable" style={{ marginTop: '40em', marginBottom: '2em' }}
-              onClick={() => {
-                const rnd = getRandomInt(onSaleAssets.length);
-                console.log("== Random Mint ==>", rnd, onSaleAssets.length);
-                if (onSaleAssets.length > 0) {
-                  tx(writeContracts.RavingGoblins.mintItem(onSaleAssets[rnd].id, { gasPrice }));
-                }
-              }}
+
+              onClick={()=>ClaimNft()}
+
               disabled={minting?true:false}
           >
             <span className="front" style= {{ paddingLeft: '2.9em', paddingRight: '2.9em' }}>
