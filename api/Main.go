@@ -5,7 +5,6 @@ import (
 	_ "fmt"
 	"log"
 	"net/http"
-	"os"
 	_ "time"
 
 	"github.com/gorilla/handlers"
@@ -18,7 +17,7 @@ func main() {
 	if err != nil {
 		log.Println("Error loading .env file")
 	}
-	port := os.Getenv("PORT")
+	//port := os.Getenv("PORT")
 
 	router := mux.NewRouter().StrictSlash(true)
 
@@ -32,8 +31,8 @@ func main() {
 	methods := handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "OPTIONS"})
 	origins := handlers.AllowedOrigins([]string{"*"})
 
-	fmt.Println("now serving on ", port)
+	fmt.Println("now serving on ", 8080)
 
-	log.Fatal(http.ListenAndServe(":"+port, handlers.CORS(headers, methods, origins)(router)))
+	log.Fatal(http.ListenAndServe(":8080", handlers.CORS(headers, methods, origins)(router)))
 
 }
