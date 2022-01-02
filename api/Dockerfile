@@ -8,6 +8,6 @@ COPY . .
 
 RUN go build . 
 
-EXPOSE 3001 
+EXPOSE 8080 
 
 ENTRYPOINT [ "./v0" ]

@@ -7,7 +7,7 @@ import (
 )
 
 func dbConn() (db *sql.DB) {
-	db, err := sql.Open("mysql", "admin:sinainday@tcp(ecoservelessdb.cluster-c8gzr5vtvzqe.ap-northeast-2.rds.amazonaws.com:3306)/econft")
+	db, err := sql.Open("mysql", "admin:johnraving@tcp(database-1.cluster-cfgoyq6p9ins.ap-northeast-2.rds.amazonaws.com:3306)/ravinggoblings")
 
 	if err != nil {
 		panic(err.Error())
