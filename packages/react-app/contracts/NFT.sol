@@ -2,6 +2,7 @@
 pragma solidity ^0.8.3;
 pragma experimental ABIEncoderV2;
 
+
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
@@ -21,7 +22,7 @@ contract NFT is ERC721Enumerable, ERC721URIStorage, AccessControlEnumerable,Reen
   uint256 public _possibleToMint = 2000;
   uint256 public price = 0.03 ether; 
 
-   address[] public MintedNFTs;
+  string[] public MintedNFTs;
  
   
   constructor () ERC721("Raving Goblins ERC721 Token", "RGT") {
@@ -43,7 +44,7 @@ contract NFT is ERC721Enumerable, ERC721URIStorage, AccessControlEnumerable,Reen
             allowedmint < MintedNFTs.length;
             allowedmint++
         ) {
-            if (MintedNFTs[allowedmint] == ipfs) {
+            if (keccak256(bytes(MintedNFTs[allowedmint])) == keccak256(bytes(ipfs))) {
                 return false;
             }
         }
@@ -81,7 +82,7 @@ contract NFT is ERC721Enumerable, ERC721URIStorage, AccessControlEnumerable,Reen
 
     require(msg.sender==admin,"only the Admin can give away some tokens");
     require(MintIsAllowed(ipfshash),"Not for sale, already minted");
-    
+
     _tokenIds.increment();
     uint256 id = _tokenIds.current();
     _mint(_team, id);
