@@ -226,6 +226,65 @@ func Getallnfts(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func GetfewNfts(w http.ResponseWriter, r *http.Request) {
+
+	var Dbresult Savenft
+
+	var response []Savenft
+
+	var ErrorR Result
+
+	db := dbConn()
+
+	host := r.Host
+
+	isallowed := Allowthis(host)
+
+	if isallowed {
+
+		forsale := "yes"
+
+		selDB, err := db.Query("SELECT * FROM allnfts where forsale=? limit 200", forsale)
+
+		if err != nil {
+			fmt.Println(err.Error())
+			ErrorR.Error = " backend error occured"
+			Conv, _ := json.MarshalIndent(ErrorR, "", " ")
+			fmt.Fprintf(w, "%s", string(Conv))
+			//fmt.Println(err.Error())
+		}
+
+		for selDB.Next() {
+			var ipfsurl, forsale string
+			var id, uid int
+			err = selDB.Scan(&id, &ipfsurl, &uid, &forsale)
+			if err != nil {
+				panic(err.Error())
+			}
+			Dbresult.Id = id
+			Dbresult.Ipfsurl = ipfsurl
+			Dbresult.UID = uid
+			Dbresult.Forsale = forsale
+
+			response = append(response, Dbresult)
+		}
+
+		Conv, _ := json.MarshalIndent(response, "", " ")
+
+		fmt.Fprintf(w, "%s", string(Conv))
+
+		defer db.Close()
+
+	} else {
+
+		fmt.Println("not allowed")
+		ErrorR.Error = "Request is not allowed"
+		Conv, _ := json.MarshalIndent(ErrorR, "", " ")
+		fmt.Fprintf(w, "%s", string(Conv))
+
+	}
+}
+
 func Pattern(w http.ResponseWriter, r *http.Request) {
 	db := dbConn()
 

@@ -28,6 +28,7 @@ func main() {
 	router.HandleFunc("/api/changetobought", ChangetoBought).Methods("POST")
 	router.HandleFunc("/api/gettotal", Gettotal).Methods("GET")
 	router.HandleFunc("/api/getallnfts", Getallnfts).Methods("GET")
+	router.HandleFunc("/api/getsomenfts", GetfewNfts).Methods("GET")
 
 	headers := handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"})
 	methods := handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "OPTIONS"})
