@@ -185,7 +185,7 @@ func Getallnfts(w http.ResponseWriter, r *http.Request) {
 
 		forsale := "yes"
 
-		selDB, err := db.Query("SELECT * FROM allnfts where forsale=? limit 100", forsale)
+		selDB, err := db.Query("SELECT * FROM allnfts where forsale=?", forsale)
 
 		if err != nil {
 			fmt.Println(err.Error())
