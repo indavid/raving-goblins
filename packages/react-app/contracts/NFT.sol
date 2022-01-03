@@ -2,6 +2,7 @@
 pragma solidity ^0.8.3;
 pragma experimental ABIEncoderV2;
 
+
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
@@ -18,8 +19,10 @@ contract NFT is ERC721Enumerable, ERC721URIStorage, AccessControlEnumerable,Reen
    using Counters for Counters.Counter;
   Counters.Counter private _tokenIds;
   address payable admin;
-  uint256 internal _possibleToMint = 2000;
+  uint256 public _possibleToMint = 2000;
   uint256 public price = 0.03 ether; 
+
+  string[] public MintedNFTs;
  
   
   constructor () ERC721("Raving Goblins ERC721 Token", "RGT") {
@@ -28,12 +31,34 @@ contract NFT is ERC721Enumerable, ERC721URIStorage, AccessControlEnumerable,Reen
 
   }
 
-  function mintItem(string memory nftURI)
+
+    function addnewNFT(string memory ipfs) internal {
+  
+        MintedNFTs.push(ipfs);
+    }
+
+
+    function MintIsAllowed(string memory ipfs) public view returns (bool) {
+      for (
+            uint256 allowedmint = 0;
+            allowedmint < MintedNFTs.length;
+            allowedmint++
+        ) {
+            if (keccak256(bytes(MintedNFTs[allowedmint])) == keccak256(bytes(ipfs))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+  function mintItem(string memory nftURI, string memory ipfshash)
       public
       payable
       nonReentrant 
       returns (uint256) {
 
+      require(MintIsAllowed(ipfshash),"Not for sale, already minted");
       require(price > 0, "Price must be at least 1 wei");
       require(msg.value == price,"unsufficient funds");
       require(_possibleToMint>0,"First drop is over");
@@ -48,17 +73,22 @@ contract NFT is ERC721Enumerable, ERC721URIStorage, AccessControlEnumerable,Reen
 
       _possibleToMint--;
 
+      addnewNFT(ipfshash);
+
       return id;
   }
 
-  function giveAway(address _team, string memory nftURI)  public returns (uint256) {
+  function giveAway(address _team, string memory nftURI, string memory ipfshash)  public returns (uint256) {
 
     require(msg.sender==admin,"only the Admin can give away some tokens");
+    require(MintIsAllowed(ipfshash),"Not for sale, already minted");
 
     _tokenIds.increment();
     uint256 id = _tokenIds.current();
     _mint(_team, id);
     _setTokenURI(id, nftURI);
+
+    addnewNFT(ipfshash);
  
     return id;
   }

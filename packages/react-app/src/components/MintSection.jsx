@@ -611,6 +611,8 @@ function MintSection(props) {
         
             const url = `https://ipfs.io/ipfs/${onSaleAssets[rnd].ipfsurl}`
 
+            const ipfshash =`${onSaleAssets[rnd].ipfsurl}`
+
             console.log("==============URL", url)
 
             let Nftprice = await contract.getPrice()
@@ -619,7 +621,7 @@ function MintSection(props) {
 
             console.log("Listing price================================",Nftprice)
 
-            const transaction = await contract.mintItem(url, {
+            const transaction = await contract.mintItem(url,ipfshash, {
               value: Nftprice
           
             })
@@ -635,6 +637,13 @@ function MintSection(props) {
 
             })
 
+
+            }else{
+
+              notification.error({
+                message: "Minting period is over",
+                placement: "bottomRight",
+              });
 
             }
 
