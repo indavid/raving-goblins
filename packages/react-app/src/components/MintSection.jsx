@@ -541,7 +541,7 @@ function MintSection(props) {
           
     try {
      
-        await axios.get(`https://ravinggoblins.herokuapp.com/api/getallnfts`) // save it into db
+        await axios.get(`https://ravinggoblings.herokuapp.com/api/getallnfts`) // save it into db
 
           .then(function(response){
 
@@ -564,7 +564,7 @@ function MintSection(props) {
 
         console.log("UPDATEEEEEEEEEEEEEEEEEEEEEEEE=============", uid)
 
-        await axios.post(`https://ravinggoblins.herokuapp.com/api/changetobought`, changeME) // save it into db
+        await axios.post(`https://ravinggoblings.herokuapp.com/api/changetobought`, changeME) // save it into db
 
           .then(function(response){
 
