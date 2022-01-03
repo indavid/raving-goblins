@@ -5,7 +5,6 @@ import (
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/joho/godotenv"
-	"os"
 )
 
 func dbConn() (db *sql.DB) {
@@ -23,7 +22,7 @@ func dbConn() (db *sql.DB) {
 
 	db, err := sql.Open(driver, username+":"+pwd+"@tcp("+host+":3306)"+"/"+dbname)*/
 
-	db, err := sql.Open("mysql", "b51edeb0349da8:085cc9ae@tcp(us-cdbr-east-05.cleardb.net:3306)/heroku_40e8bc5e67898af")
+	db, err := sql.Open("mysql", "b46bd41ba12523:373decd6@tcp(us-cdbr-east-05.cleardb.net:3306)/heroku_2590eb959784116")
 
 	if err != nil {
 		panic(err.Error())
