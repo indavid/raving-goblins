@@ -25,7 +25,7 @@ contract NFT is ERC721Enumerable, ERC721URIStorage, AccessControlEnumerable,Reen
   string[] public MintedNFTs;
  
   
-  constructor () ERC721("Raving Goblins ERC721 Token", "RGT") {
+  constructor () ERC721("Raving Goblins ", "RGT") {
 
     admin=payable(msg.sender);
 
