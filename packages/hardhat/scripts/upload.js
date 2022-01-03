@@ -67,7 +67,7 @@ const main = async () => {
     try {
       const NewNFT = {ipfsurl:String(uploaded.path),uid:Number(uid)}
       console.log(NewNFT)
-        await axios.post(`https://ravinggoblins.herokuapp.com/api/savenewnft`,NewNFT) // save it into db
+        await axios.post(`https://ravinggoblings.herokuapp.com/api/savenewnft`,NewNFT) // save it into db
 
           .then(function(response){
 
