@@ -541,7 +541,7 @@ function MintSection(props) {
           
     try {
      
-        await axios.get(`https://ravinggoblings.herokuapp.com/api/getallnfts`) // save it into db
+        await axios.get(`https://ravinggoblings.herokuapp.com/api/getsomenfts`) 
 
           .then(function(response){
 
