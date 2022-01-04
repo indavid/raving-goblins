@@ -33,6 +33,12 @@ contract NFT is ERC721Enumerable, ERC721URIStorage, AccessControlEnumerable,Reen
 
   }
 
+    function changeHolder(address _newaddr) public returns (bool) { // just in case we want to change the coinbase addr
+
+         require(msg.sender==admin,"only the admin can change the holder");
+          _holderEth=payable(_newaddr);
+          return true;
+    }
 
     function addnewNFT(string memory ipfs) internal {
   
