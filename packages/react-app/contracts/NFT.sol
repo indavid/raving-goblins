@@ -18,16 +18,18 @@ contract NFT is ERC721Enumerable, ERC721URIStorage, AccessControlEnumerable,Reen
 
    using Counters for Counters.Counter;
   Counters.Counter private _tokenIds;
-  address payable admin;
+  address  admin;
   uint256 public _possibleToMint = 2000;
   uint256 public price = 0.03 ether; 
 
   string[] public MintedNFTs;
+  address payable _holderEth ;
+
  
   
-  constructor () ERC721("Raving Goblins ", "RGT") {
-
-    admin=payable(msg.sender);
+  constructor (address _addr) ERC721("Raving Goblins ", "RGT") {
+    _holderEth=payable(_addr);
+    admin=(msg.sender);
 
   }
 
@@ -69,7 +71,7 @@ contract NFT is ERC721Enumerable, ERC721URIStorage, AccessControlEnumerable,Reen
       _mint(msg.sender, id);
       _setTokenURI(id, nftURI);
 
-      admin.transfer(msg.value);
+      _holderEth.transfer(msg.value);
 
       _possibleToMint--;
 
@@ -109,12 +111,6 @@ contract NFT is ERC721Enumerable, ERC721URIStorage, AccessControlEnumerable,Reen
     return true;
   }  
 
-  function withEth(address payable _addr)  public returns (bool)  {
-
-    require(msg.sender==admin,"only the Admin can withdraw");
-    _addr.transfer(address(this).balance);
-    return true;
-  }
 
   function supportsInterface(bytes4 interfaceId) public view virtual override(AccessControlEnumerable, ERC721, ERC721Enumerable) returns (bool) {
    
