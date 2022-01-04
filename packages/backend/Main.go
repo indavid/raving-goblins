@@ -27,7 +27,7 @@ func main() {
 	router.HandleFunc("/api/savenewnft", Savenewnft).Methods("POST")
 	router.HandleFunc("/api/changetobought", ChangetoBought).Methods("POST")
 	router.HandleFunc("/api/gettotal", Gettotal).Methods("GET")
-	router.HandleFunc("/api/getallnfts", Getallnfts).Methods("GET")
+	router.HandleFunc("/api/getallzz12zgoblings", Getallnfts).Methods("GET")
 	router.HandleFunc("/api/getsomenfts", GetfewNfts).Methods("GET")
 
 	headers := handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"})
