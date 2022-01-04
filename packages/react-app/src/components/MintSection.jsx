@@ -532,9 +532,6 @@ function MintSection(props) {
      const cleanMe = GetForSale()
      return cleanMe
 
-
-
-
   }, [updateMe]);
 
   const GetForSale =async()=>{
