@@ -48,7 +48,7 @@ const main = async () => {
 
 
   let allAssets = {}
-  let uid = 0
+  let uid = 1090
 
   console.log("\n\n Loading artwork.json...\n");
   const artwork = JSON.parse(fs.readFileSync("../../artwork.json").toString())
