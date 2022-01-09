@@ -2,10 +2,12 @@ import React, { useCallback, useEffect, useState } from "react";
 import { Alert, Button, Row, Card, Col, Input, List, Menu, Anchor } from 'antd';
 import { SmileOutlined } from '@ant-design/icons';
 import "./index.css";
+import loader from './assets/loader.gif';
 import background3 from "../static/bgs/bg3.gif";
 import axios from "axios";
 import { notification } from "antd";
 import WalletConnectProvider from "@walletconnect/web3-provider";
+import { Modal} from 'antd';
 import WalletLink from "walletlink";
 import "antd/dist/antd.css";
 import Web3Modal from "web3modal";
@@ -504,6 +506,20 @@ function MintSection(props) {
   const [onSaleAssets, setOnSaleAssets] = useState([]);
   const[updateMe, setUpdate]=useState();
 
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
 
   useEffect(() => {
       /*const updateRavingGoblins = async () => {
@@ -585,15 +601,14 @@ function MintSection(props) {
   const ClaimNft = async() => {
 
       /* FIRST METHOD =========================== */
+
+      SetMinting(true)
+
+      
       
       try {
 
-            notification.info({
-              message: "The Minting process has begun",
-              placement: "topRight",
-              icon: <SmileOutlined style={{ color: 'white' }} />,
-            });
-
+      
             const web3Modal = new Web3Modal()
             const connection = await web3Modal.connect()
             const provider = new ethers.providers.Web3Provider(connection)    
@@ -644,15 +659,23 @@ function MintSection(props) {
 
             }
 
+            SetMinting(false)
+
+            handleCancel()
+
         
         
       } catch (error) {
 
-        
+        SetMinting(false)
+ 
         notification.error({
           message: `${error.message}`,
           placement: "bottomRight",
         });
+
+
+        handleCancel()
 
 
         
@@ -721,7 +744,7 @@ function MintSection(props) {
         <Col span={3}>
           <button className="pushable" style={{ marginTop: '40em', marginBottom: '2em' }}
 
-              onClick={()=>ClaimNft()}
+              onClick={()=>{ClaimNft();showModal()}}
 
               disabled={minting?true:false}
           >
@@ -734,9 +757,22 @@ function MintSection(props) {
                 <span className="front">CONNECT</span>
           </button> 
           <br />
-          <div style={{fontSize:'14px', color:'white', textAlign:'center', justifyContent: 'center', height:'20px'}}> {minting&&<i>We are minting your Raving Goblin, please wait ...</i>}</div>
+          <div style={{fontSize:'14px', color:'white', textAlign:'center', justifyContent: 'center', height:'20px'}}> </div>
         </Col>
       </Row>
+
+      <Modal title="Minting..." visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}
+      
+         footer={[
+       
+          ]}>
+
+          <div style={{textAlign:'center'}}>
+            <p>Minting your NFT please wait</p> <img src={loader} width="100"/>
+          </div>
+
+      </Modal>
+
     </div>
   )
 }
