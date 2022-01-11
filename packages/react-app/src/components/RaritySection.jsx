@@ -30,7 +30,7 @@ class RaritySection extends React.Component {
                                     Rarity
                                 </Title>
                                 <Paragraph style={{ color: '#EBFEFF' }}>
-                                    All RavingGoblins are dope, but they all come in different tiers. The common ones are comprised of a unique body, bat, hat, scarf, shoes, and background. The rare ones are limited editions of kings, artists, musicians, stars, ravers, and more.
+                                    All RavingGoblins are dope, but they all come in different tiers. The common ones are comprised of a unique body, bat, hat, scarf, shoes, and background. The rare ones are limited editions of korean nobles, artists, musicians, stars, ravers, and more.
                                 </Paragraph>
                                 <Title level={2} style={{ color: '#B9F8FD' }}>
                                     Legend: 0.5%  |
@@ -44,8 +44,8 @@ class RaritySection extends React.Component {
                                     Utility
                                 </Title>
                                 <Paragraph style={{ color: '#EBFEFF' }}>
-                                    Minting RavingGoblins will give you an access to the most exclusive degenerative party community in the world. We are not just bringing the party to you but we need your help to bring the party to everyone else.
-                                    Together we will be building the dopest clubs to party the next millennium away.
+                                    Minting RavingGoblins will give you access to the most exclusive degenerate party community in the world. We are not just bringing the party to you but we need your help to bring the party to everyone else.
+                                    Together we will be building the dopest clubs in the metaverse and the universe to party the next millennium away.
                                 </Paragraph>
                                 <Title style={{ color: '#0CEEFF', marginBottom: '0.5em' }}>
                                     Gacha
