@@ -5,6 +5,7 @@ packages/subgraph/generated
 packages/subgraph/abis/*
 packages/hardhat/*.txt
 packages/react-app/aws.json
+packages/react-app/.secret
 **/aws.json
 **/.secret
 
