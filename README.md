@@ -8,7 +8,7 @@ Required: [Git](https://git-scm.com/downloads), [Node](https://nodejs.org/dist/l
 ```bash
 git clone https://github.com/indavid/raving-goblins.git
 
-cd raving-goblins
+cd raving-goblins 
 
 yarn
 ```
