@@ -6,6 +6,7 @@ packages/subgraph/abis/*
 packages/hardhat/*.txt
 packages/react-app/aws.json
 **/aws.json
+**/.secret
 
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 **/node_modules
