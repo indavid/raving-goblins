@@ -39,14 +39,6 @@ npx hardhat run ./scripts/deploy.js --network rinkeby ( you can reply the rinkeb
 
 ```
 
-> Upload all the JSON data to IPFS and store all the CIDs to our API in the Heroku DB (if needed, replace the api endpoint in packages/hardhat/upload.js)
- 
-```bash
-
-yarn upload
-
-```
-
 > Set up Heroku backend API to keep track of NFTs: Create Heruko account, project and DB after logging in (any PAAS is okay)
 
 > Change in MySql file "db, err := sql.Open("mysql",“USERNAME:PWD@tcp(HOST:3306)/DBNAME")" and then save and run build command inside the folder, and then git push it to Heroku
@@ -58,6 +50,15 @@ cd packages/backend/Mysqlcon.go
 go build
 
 ./gitpush.sh 
+
+```
+
+
+> Upload all the JSON data to IPFS and store all the CIDs to our API in the Heroku DB (if needed, replace the api endpoint in packages/hardhat/upload.js)
+ 
+```bash
+
+yarn upload
 
 ```
 
